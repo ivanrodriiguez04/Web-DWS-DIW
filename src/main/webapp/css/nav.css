@@ -1,0 +1,68 @@
+.container-fluid {
+    background-color: #033880;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo {
+    color: #d9d9d9;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration: none;
+}
+.logo:hover{
+    color: #d9d9d9;
+    text-decoration: none;
+}
+.hazteCliente{
+    color: #f4b426;
+    font-family: 'Courier New';
+    text-decoration: none;
+}
+.hazteCliente:hover{
+    color: #f4b426;
+    text-decoration: none;
+}
+.nav-right {
+    display: flex;
+    gap: 20px;
+}
+
+.login-cuentas {
+    color: #d9d9d9;
+    text-decoration: none;
+}
+
+.login-cuentas:hover {
+    color: #d9d9d9;
+    text-decoration: none;
+
+}
+
+.dropdown-menu {
+    display: none; /* Bootstrap lo maneja automáticamente */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.email-link {
+    color: white; /* O el color que desees */
+    text-decoration: none; /* Quita el subrayado */
+    cursor: pointer; /* Mantiene la usabilidad */
+}
+
+.email-link:hover {
+    color: white; /* Mantiene el color al pasar el mouse */
+    text-decoration: underline; /* Opcional, si quieres que al pasar el mouse se subraye */
+}
+
