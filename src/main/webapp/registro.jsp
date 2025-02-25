@@ -60,8 +60,8 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 		</h3>
 
 		<!-- Formulario de registro -->
-		<form id="registro" action="registro" method="POST"
-			enctype="multipart/form-data">
+		<form action="/registro/registro" method="POST" enctype="multipart/form-data">
+
 			<div class="row">
 				<!-- Primera columna -->
 				<div class="col-md-6">
