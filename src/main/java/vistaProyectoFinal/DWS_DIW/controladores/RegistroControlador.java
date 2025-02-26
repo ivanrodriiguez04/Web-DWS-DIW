@@ -17,18 +17,13 @@ public class RegistroControlador {
 
     @Autowired
     private RegistroServicio registroServicio;
-    
+
     @GetMapping
     public String mostrarFormularioRegistro() {
-        return "registro"; // Asegúrate de que registro.jsp está en /WEB-INF/views/
+        return "registro"; // Asegúrate de que "registro.jsp" existe en la carpeta correcta
     }
 
-    @GetMapping("/registro") // Permitir GET en "/registro/registro"
-    public String mostrarRegistro() {
-        return "registro";
-    }
-
-    @PostMapping("/registro")
+    @PostMapping
     public String registrarUsuario(
             @RequestParam("nombreCompletoUsuario") String nombreCompleto,
             @RequestParam("telefonoUsuario") String telefono,
@@ -40,19 +35,22 @@ public class RegistroControlador {
             @RequestParam("fotoUsuario") MultipartFile fotoUsuario,
             HttpServletRequest request) {
 
+        // 🔹 Validar que todas las imágenes fueron subidas
         if (fotoDniFrontal.isEmpty() || fotoDniTrasero.isEmpty() || fotoUsuario.isEmpty()) {
             request.setAttribute("mensaje", "Debe subir todas las imágenes.");
             return "registro";
         }
 
+        // 🔹 Intentar registrar al usuario
         boolean registrado = registroServicio.registrarUsuario(
                 nombreCompleto, telefono, email, password, dni,
                 fotoDniFrontal, fotoDniTrasero, fotoUsuario);
 
         if (registrado) {
-            return "inicioSesion"; 
+            request.setAttribute("mensaje", "Registro exitoso. Por favor, revisa tu email para confirmar la cuenta.");
+            return "inicioSesion"; // Redirigir a inicioSesion.jsp
         } else {
-            request.setAttribute("mensaje", "Error en el registro.");
+            request.setAttribute("mensaje", "Error en el registro. Inténtelo de nuevo.");
             return "registro";
         }
     }
