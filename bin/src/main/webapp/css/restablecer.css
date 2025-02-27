@@ -1,0 +1,55 @@
+/* Estilos globales */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor ocupa toda la pantalla y centra el formulario */
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Tarjeta del formulario */
+.Restablecer {
+    background-color: #033880;
+    border: 3px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+}
+
+/* Color de los textos */
+.Restablecer h3, 
+.Restablecer label {
+    color: white;
+}
+
+/* Labels alineados a la izquierda */
+.Restablecer label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Inputs y botón ocupan todo el ancho */
+.Restablecer input,
+.Restablecer button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+    .Restablecer {
+        padding: 20px;
+        max-width: 90%;
+    }
+}
