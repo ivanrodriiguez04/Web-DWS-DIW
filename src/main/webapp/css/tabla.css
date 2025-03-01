@@ -1,0 +1,47 @@
+/* ✅ Contenedor de la tabla */
+.container {
+    margin-top: 20px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Estilos de la tabla */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.table th {
+    background-color: #0073e6;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.table td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* ✅ Alternar color de filas */
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* ✅ Botón de eliminar */
+.btn-danger {
+    background-color: red;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: darkred;
+}
