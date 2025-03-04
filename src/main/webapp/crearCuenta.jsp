@@ -1,55 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 String emailUsuario = (String) session.getAttribute("emailUsuario");
 %>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/nav.css">
-<link rel="icon" type="image/png" href="imagenes/favicon.png">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta</title>
+    <link rel="icon" type="image/png" href="imagenes/favicon.png">
+    <link rel="stylesheet" href="css/nav.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+    <nav>
+        <div class="container-fluid">
+            <div class="nav-left">
+                <a href="index.jsp" class="logo">InnovaBank</a>
+            </div>
+            <div class="nav-right">
+                <% if (emailUsuario == null) { %>
+                    <a href="registro.jsp" class="hazteCliente">Hazte cliente</a>
+                    <a href="inicioSesion.jsp" class="login-cuentas">Login</a>
+                <% } else { %>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle email-link" id="userDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <%= emailUsuario %>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
+                            <li><a href="logout.jsp" class="dropdown-item">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </nav>
 
-	<nav>
-		<div class="container-fluid">
-			<div class="nav-left">
-				<a href="index.jsp" class="logo">InnovaBank</a>
-			</div>
-			<div class="nav-right">
-				<%
-				if (emailUsuario == null) {
-				%>
-				<a href="registro.jsp" class="hazteCliente">Hazte cliente</a> <a
-					href="inicioSesion.jsp" class="login-cuentas">Login</a>
-				<%
-				} else {
-				%>
-				<div class="dropdown">
-					<a class="dropdown-toggle email-link" id="userDropdown" href="#"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						<%=emailUsuario%>
-					</a>
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="userDropdown">
-						<li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
-						<li><a href="logout.jsp" class="dropdown-item">Cerrar
-								Sesión</a></li>
-					</ul>
-				</div>
-				<%
-				}
-				%>
-			</div>
-		</div>
-	</nav>
-	<h1>Formulario de creacion de cuentas</h1>
+    <h1>Crear una Nueva Cuenta</h1>
+
+    <form id="formCrearCuenta" class="mb-4">
+        <div class="mb-3">
+            <label for="nombreCuenta" class="form-label">Nombre de la cuenta:</label>
+            <input type="text" id="nombreCuenta" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="tipoCuenta" class="form-label">Tipo de cuenta:</label>
+            <select id="tipoCuenta" class="form-select" required>
+                <option value="familiar">Familiar</option>
+                <option value="personal">Personal</option>
+                <option value="ahorro">Ahorro</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear cuenta</button>
+    </form>
+
+    <script src="js/crearCuenta.js"></script>
 </body>
 </html>
