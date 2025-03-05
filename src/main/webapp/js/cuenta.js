@@ -1,36 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Guardar ID de usuario en localStorage y sessionStorage
-    const idUsuario = document.body.getAttribute("data-usuario-id");
-    if (idUsuario) {
-        localStorage.setItem("idUsuario", idUsuario);
-        sessionStorage.setItem("idUsuario", idUsuario);
-        cargarCuentas();
-    } else {
-        console.error("ID de usuario no encontrado en la sesión.");
-    }
-
-    configurarFormularioCreacion();
+    cargarCuentas();
 });
 
-// Función para obtener el ID del usuario
-function obtenerUsuarioId() {
-    let usuarioId = sessionStorage.getItem("idUsuario") || localStorage.getItem("idUsuario");
-    if (!usuarioId) {
-        console.error("ID de usuario no encontrado.");
-        return null;
-    }
-    return parseInt(usuarioId);
-}
-
-// Función para cargar las cuentas del usuario desde la API
+// Función para cargar las cuentas desde el controlador del proyecto Web
 function cargarCuentas() {
-    let usuarioId = obtenerUsuarioId();
-    if (!usuarioId) {
-        console.error("Error: ID de usuario no encontrado.");
-        return;
-    }
-
-    fetch(`http://localhost:8081/api/cuentas/usuario/${usuarioId}`)
+    fetch("http://localhost:8080/cuentas/obtener")
         .then(response => {
             if (!response.ok) {
                 throw new Error("Error al obtener las cuentas");
@@ -47,7 +21,6 @@ function cargarCuentas() {
                 let tabla = `<table class="table table-bordered">
                     <thead class="table-dark">
                         <tr>
-                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Tipo</th>
                             <th>IBAN</th>
@@ -60,7 +33,6 @@ function cargarCuentas() {
                 data.forEach(cuenta => {
                     tabla += `
                         <tr>
-                            <td>${cuenta.idCuenta}</td>
                             <td>${cuenta.nombreCuenta}</td>
                             <td>${cuenta.tipoCuenta}</td>
                             <td>${cuenta.ibanCuenta}</td>
@@ -81,58 +53,28 @@ function cargarCuentas() {
         });
 }
 
-// Función para eliminar una cuenta
+// Función para eliminar una cuenta a través del controlador Web (CORREGIDO)
 function eliminarCuenta(idCuenta) {
     if (!confirm("¿Seguro que deseas eliminar esta cuenta?")) return;
 
-    fetch(`http://localhost:8081/api/cuentas/eliminar/${idCuenta}`, {
-        method: "DELETE",
+    fetch("http://localhost:8080/cuentas/eliminar", {
+        method: "POST",  // 🔹 Ahora es POST en lugar de DELETE
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",  // 🔹 Necesario para enviar `form-data`
+        },
+        body: `idCuenta=${idCuenta}`  // 🔹 Enviado en el cuerpo de la petición
     })
     .then(response => {
         if (!response.ok) throw new Error("Error al eliminar la cuenta");
-        return response.json();
+        return response.text();
     })
     .then(data => {
-        alert("Cuenta eliminada con éxito.");
-        cargarCuentas();
+        if (data === "success") {
+            alert("Cuenta eliminada con éxito.");
+            cargarCuentas();
+        } else {
+            alert("Error al eliminar la cuenta.");
+        }
     })
     .catch(error => console.error("Error al eliminar cuenta:", error));
-}
-
-// Configurar el formulario de creación de cuentas
-function configurarFormularioCreacion() {
-    const form = document.getElementById("crearCuentaForm");
-    if (!form) return;
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        let usuarioId = obtenerUsuarioId();
-        if (!usuarioId) {
-            alert("Error: ID de usuario no encontrado.");
-            return;
-        }
-
-        let cuenta = {
-            nombreCuenta: document.getElementById("nombreCuenta").value,
-            tipoCuenta: document.getElementById("tipoCuenta").value,
-            idUsuario: usuarioId
-        };
-
-        fetch("http://localhost:8081/api/cuentas/crear", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(cuenta)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert("Error: " + data.error);
-            } else {
-                alert("Cuenta creada con éxito.");
-                window.location.href = "cuentas.jsp";
-            }
-        })
-        .catch(error => console.error("Error al crear cuenta:", error));
-    });
 }
