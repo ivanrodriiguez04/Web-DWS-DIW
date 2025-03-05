@@ -8,9 +8,8 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Cuenta</title>
-    <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link rel="stylesheet" href="css/nav.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <nav>
@@ -24,10 +23,10 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
                     <a href="inicioSesion.jsp" class="login-cuentas">Login</a>
                 <% } else { %>
                     <div class="dropdown">
-                        <a class="dropdown-toggle email-link" id="userDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="dropdown-toggle email-link" id="userDropdown" href="#" role="button" data-bs-toggle="dropdown">
                             <%= emailUsuario %>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
                             <li><a href="logout.jsp" class="dropdown-item">Cerrar sesión</a></li>
                         </ul>
@@ -37,24 +36,26 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
         </div>
     </nav>
 
-    <h1>Crear una Nueva Cuenta</h1>
+    <div class="container mt-4">
+        <h1>Crear una Nueva Cuenta</h1>
 
-    <form id="formCrearCuenta" class="mb-4">
-        <div class="mb-3">
-            <label for="nombreCuenta" class="form-label">Nombre de la cuenta:</label>
-            <input type="text" id="nombreCuenta" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="tipoCuenta" class="form-label">Tipo de cuenta:</label>
-            <select id="tipoCuenta" class="form-select" required>
-                <option value="familiar">Familiar</option>
-                <option value="personal">Personal</option>
-                <option value="ahorro">Ahorro</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Crear cuenta</button>
-    </form>
+        <form id="crearCuentaForm" class="mb-4">
+            <div class="mb-3">
+                <label for="nombreCuenta" class="form-label">Nombre de la cuenta:</label>
+                <input type="text" id="nombreCuenta" name="nombreCuenta" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="tipoCuenta" class="form-label">Tipo de cuenta:</label>
+                <select id="tipoCuenta" name="tipoCuenta" class="form-select" required>
+                    <option value="familiar">Familiar</option>
+                    <option value="personal">Personal</option>
+                    <option value="ahorro">Ahorro</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Crear cuenta</button>
+        </form>
+    </div>
 
-    <script src="js/crearCuenta.js"></script>
+    <script src="js/cuenta.js"></script>
 </body>
 </html>

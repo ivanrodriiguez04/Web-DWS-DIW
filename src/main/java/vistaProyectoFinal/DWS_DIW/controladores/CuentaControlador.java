@@ -1,6 +1,5 @@
 package vistaProyectoFinal.DWS_DIW.controladores;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,56 +12,55 @@ import java.util.List;
 @Controller
 @RequestMapping("/cuentas")
 public class CuentaControlador {
-    
-    @Autowired
-    private CuentaServicio cuentaServicio;
 
+    private final CuentaServicio cuentaServicio;
+
+    public CuentaControlador(CuentaServicio cuentaServicio) {
+        this.cuentaServicio = cuentaServicio;
+    }
+
+    /**
+     * Obtiene todas las cuentas del usuario actual.
+     */
     @GetMapping("")
     public String verCuentas(HttpServletRequest request, Model model) {
         Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
         if (idUsuario == null) {
-            model.addAttribute("mensaje", "Debe iniciar sesión para ver sus cuentas.");
             return "inicioSesion";
         }
+        
         List<CuentaDto> cuentas = cuentaServicio.obtenerCuentasPorUsuario(idUsuario);
         model.addAttribute("cuentas", cuentas);
         return "cuentas";
     }
 
+    /**
+     * Crea una nueva cuenta asociada al usuario en sesión.
+     */
     @PostMapping("/crear")
-    public String crearCuenta(@RequestBody CuentaDto cuentaDto, HttpServletRequest request, Model model) {
+    public String crearCuenta(@ModelAttribute CuentaDto cuentaDto, HttpServletRequest request) {
         Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
         if (idUsuario == null) {
-            model.addAttribute("mensaje", "Debe iniciar sesión para crear una cuenta.");
             return "inicioSesion";
         }
+        
         cuentaDto.setIdUsuario(idUsuario);
-        boolean cuentaCreada = cuentaServicio.crearCuenta(cuentaDto);
-        if (cuentaCreada) {
-            return "redirect:/cuentas";
-        } else {
-            model.addAttribute("mensaje", "Error al crear la cuenta. Inténtelo de nuevo.");
-            return "crearCuenta";
-        }
+        cuentaDto.setDineroCuenta(0.0);
+        boolean creada = cuentaServicio.crearCuenta(cuentaDto);
+        return "cuentas";
     }
 
+    /**
+     * Elimina una cuenta específica si pertenece al usuario en sesión.
+     */
     @PostMapping("/eliminar")
-    public String eliminarCuenta(@RequestParam("idCuenta") long idCuenta, HttpServletRequest request, Model model) {
+    public String eliminarCuenta(@RequestParam("idCuenta") long idCuenta, HttpServletRequest request) {
         Long idUsuario = (Long) request.getSession().getAttribute("idUsuario");
         if (idUsuario == null) {
-            model.addAttribute("mensaje", "Debe iniciar sesión para eliminar una cuenta.");
             return "inicioSesion";
         }
-        try {
-            boolean eliminada = cuentaServicio.eliminarCuenta(idCuenta);
-            if (eliminada) {
-                return "redirect:/cuentas";
-            } else {
-                model.addAttribute("mensaje", "Error al eliminar la cuenta.");
-            }
-        } catch (Exception e) {
-            model.addAttribute("mensaje", "Error al procesar la solicitud.");
-        }
+        
+        cuentaServicio.eliminarCuenta(idCuenta);
         return "cuentas";
     }
 }

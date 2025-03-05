@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
+<%
 String emailUsuario = (String) session.getAttribute("emailUsuario");
+String idUsuario = (String) session.getAttribute("idUsuario"); // Obtener idUsuario almacenado en la sesión
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

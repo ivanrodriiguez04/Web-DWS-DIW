@@ -1,29 +1,19 @@
 package vistaProyectoFinal.DWS_DIW.dtos;
 
+
 public class CuentaDto {
-    private long idCuenta;
+    private Long idCuenta;
     private String nombreCuenta;
     private String tipoCuenta;
     private String ibanCuenta;
-    private int dineroCuenta;
-    private long idUsuario;
+    private Double dineroCuenta;
+    private Long idUsuario;
 
-    public CuentaDto() {}
-
-    public CuentaDto(long idCuenta, String nombreCuenta, String tipoCuenta, String ibanCuenta, int dineroCuenta, long idUsuario) {
-        this.idCuenta = idCuenta;
-        this.nombreCuenta = nombreCuenta;
-        this.tipoCuenta = tipoCuenta;
-        this.ibanCuenta = ibanCuenta;
-        this.dineroCuenta = dineroCuenta;
-        this.idUsuario = idUsuario;
-    }
-
-    public long getIdCuenta() {
+    public Long getIdCuenta() {
         return idCuenta;
     }
 
-    public void setIdCuenta(long idCuenta) {
+    public void setIdCuenta(Long idCuenta) {
         this.idCuenta = idCuenta;
     }
 
@@ -51,19 +41,19 @@ public class CuentaDto {
         this.ibanCuenta = ibanCuenta;
     }
 
-    public int getDineroCuenta() {
+    public Double getDineroCuenta() {
         return dineroCuenta;
     }
 
-    public void setDineroCuenta(int dineroCuenta) {
+    public void setDineroCuenta(Double dineroCuenta) {
         this.dineroCuenta = dineroCuenta;
     }
 
-    public long getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(long idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 }
