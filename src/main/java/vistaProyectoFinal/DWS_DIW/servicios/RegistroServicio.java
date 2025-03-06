@@ -15,70 +15,81 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
+
 @Service
 public class RegistroServicio {
+    private static final SesionLogger logger = new SesionLogger(RegistroServicio.class);
+    private final String API_URL = "http://localhost:8081/api/registro/usuario";
 
-	private final String API_URL = "http://localhost:8081/api/registro/usuario";
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private EmailServicio emailServicio;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private RestTemplate restTemplate;
-	@Autowired
-	private EmailServicio emailServicio;
+    public boolean registrarUsuario(String nombreCompleto, String telefono, String email, String password, String dni,
+                                    MultipartFile fotoDniFrontal, MultipartFile fotoDniTrasero, MultipartFile fotoUsuario) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            String token = UUID.randomUUID().toString();
+            String passwordEncriptada = passwordEncoder.encode(password);
 
-	@Autowired
-	private PasswordEncoder passwordEncoder; // Inyectamos el encriptador
+            Map<String, Object> datosUsuario = new HashMap<>();
+            datosUsuario.put("nombreCompletoUsuario", nombreCompleto);
+            datosUsuario.put("telefonoUsuario", telefono);
+            datosUsuario.put("emailUsuario", email);
+            datosUsuario.put("passwordUsuario", passwordEncriptada);
+            datosUsuario.put("dniUsuario", dni);
+            datosUsuario.put("token", token);
 
-	public boolean registrarUsuario(String nombreCompleto, String telefono, String email, String password, String dni,
-			MultipartFile fotoDniFrontal, MultipartFile fotoDniTrasero, MultipartFile fotoUsuario) {
+            try {
+                datosUsuario.put("fotoDniFrontalUsuario", fotoDniFrontal.getBytes());
+                datosUsuario.put("fotoDniTraseroUsuario", fotoDniTrasero.getBytes());
+                datosUsuario.put("fotoUsuario", fotoUsuario.getBytes());
+            } catch (Exception e) {
+                logger.error("Error al procesar archivos de usuario: " + e.getMessage());
+                return false;
+            }
 
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(datosUsuario, headers);
+            ResponseEntity<Void> response = restTemplate.postForEntity(API_URL, requestEntity, Void.class);
 
-// 🔹 Generar token en la web
-		String token = UUID.randomUUID().toString();
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                enviarCorreoConfirmacion(email, token);
+                logger.info("Usuario registrado exitosamente: " + email);
+                return true;
+            } else {
+                logger.warn("Error al registrar usuario: " + email + " - Código de respuesta: " + response.getStatusCode());
+                return false;
+            }
+        } catch (Exception e) {
+            logger.error("Excepción al registrar usuario: " + email + " - " + e.getMessage());
+            return false;
+        }
+    }
 
-// 🔹 Encriptar la contraseña antes de enviarla a la API
-		String passwordEncriptada = passwordEncoder.encode(password);
+    private void enviarCorreoConfirmacion(String email, String token) {
+        try {
+            String asunto = "Confirma tu cuenta en InnovaBank";
+            String enlaceConfirmacion = "http://localhost:8080/confirmar?token=" + token;
+            String mensaje = "<html><body>"
+                    + "<h2>¡Bienvenido a InnovaBank!</h2>"
+                    + "<p>Gracias por registrarte. Para activar tu cuenta, haz clic en el siguiente enlace:</p>"
+                    + "<a href='" + enlaceConfirmacion + "' style='padding:10px; background:#28a745; color:white; text-decoration:none;'>Confirmar cuenta</a>"
+                    + "<p>Si no solicitaste esta cuenta, ignora este correo.</p>"
+                    + "</body></html>";
 
-// 🔹 Crear JSON con datos del usuario + token
-		Map<String, Object> datosUsuario = new HashMap<>();
-		datosUsuario.put("nombreCompletoUsuario", nombreCompleto);
-		datosUsuario.put("telefonoUsuario", telefono);
-		datosUsuario.put("emailUsuario", email);
-		datosUsuario.put("passwordUsuario", passwordEncriptada);
-		datosUsuario.put("dniUsuario", dni);
-		datosUsuario.put("token", token); // 🔹 Enviar el token a la API
-
-		try {
-			datosUsuario.put("fotoDniFrontalUsuario", fotoDniFrontal.getBytes());
-			datosUsuario.put("fotoDniTraseroUsuario", fotoDniTrasero.getBytes());
-			datosUsuario.put("fotoUsuario", fotoUsuario.getBytes());
-		} catch (Exception e) {
-			return false;
-		}
-
-		HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(datosUsuario, headers);
-		ResponseEntity<Void> response = restTemplate.postForEntity(API_URL, requestEntity, Void.class);
-
-		if (response.getStatusCode() == HttpStatus.CREATED) {
-			enviarCorreoConfirmacion(email, token); // 🔹 Enviar correo con el token
-			return true;
-		}
-		return false;
-	}
-
-	private void enviarCorreoConfirmacion(String email, String token) {
-	    String asunto = "Confirma tu cuenta en InnovaBank";
-	    String enlaceConfirmacion = "http://localhost:8080/confirmar?token=" + token; // 🔹 Asegurar que el puerto sea correcto
-
-	    String mensaje = "<html><body>"
-	            + "<h2>¡Bienvenido a InnovaBank!</h2>"
-	            + "<p>Gracias por registrarte. Para activar tu cuenta, haz clic en el siguiente enlace:</p>"
-	            + "<a href='" + enlaceConfirmacion + "' style='padding:10px; background:#28a745; color:white; text-decoration:none;'>Confirmar cuenta</a>"
-	            + "<p>Si no solicitaste esta cuenta, ignora este correo.</p>"
-	            + "</body></html>";
-
-	    emailServicio.enviarCorreo(email, asunto, mensaje);
-	}
-
+            boolean enviado = emailServicio.enviarCorreo(email, asunto, mensaje);
+            if (enviado) {
+                logger.info("Correo de confirmación enviado a: " + email);
+            } else {
+                logger.warn("No se pudo enviar el correo de confirmación a: " + email);
+            }
+        } catch (Exception e) {
+            logger.error("Error al enviar correo de confirmación a " + email + ": " + e.getMessage());
+        }
+    }
 }

@@ -1,0 +1,17 @@
+2025-03-06 14:17:12 - [INFO] Correo enviado exitosamente a: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:12 - [INFO] Correo de confirmación enviado a: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:12 - [INFO] Usuario registrado exitosamente: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:12 - [INFO] Registro exitoso para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:19 - [INFO] Cuenta confirmada correctamente.
+2025-03-06 14:17:29 - [INFO] Respuesta del servidor: usuario
+2025-03-06 14:17:29 - [INFO] Inicio de sesión exitoso para: ivanrodriguezmarchan24@gmail.com con rol: usuario
+2025-03-06 14:17:32 - [ERROR] Error obteniendo cuentas para el usuario ivanrodriguezmarchan24@gmail.com: 404  on GET request for "http://localhost:8081/api/cuentas/usuario/email/ivanrodriguezmarchan24@gmail.com": "{"error":"No hay cuentas para este usuario"}"
+2025-03-06 14:17:37 - [INFO] IBAN generado: ES713028453939144
+2025-03-06 14:17:37 - [INFO] Cuenta creada exitosamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:37 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:44 - [INFO] IBAN generado: ES468856110914692
+2025-03-06 14:17:44 - [INFO] Cuenta creada exitosamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:44 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:52 - [INFO] IBAN generado: ES480504412886659
+2025-03-06 14:17:52 - [INFO] Cuenta creada exitosamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-06 14:17:52 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriguezmarchan24@gmail.com

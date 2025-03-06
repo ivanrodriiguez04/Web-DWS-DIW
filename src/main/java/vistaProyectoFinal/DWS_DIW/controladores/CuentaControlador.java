@@ -3,7 +3,9 @@ package vistaProyectoFinal.DWS_DIW.controladores;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import jakarta.servlet.http.HttpServletRequest;
+import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.dtos.CuentaDto;
 import vistaProyectoFinal.DWS_DIW.servicios.CuentaServicio;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @RequestMapping("/cuentas")
 public class CuentaControlador {
 
+    private static final SesionLogger logger = new SesionLogger(CuentaControlador.class);
     private final CuentaServicio cuentaServicio;
 
     public CuentaControlador(CuentaServicio cuentaServicio) {
@@ -21,57 +24,71 @@ public class CuentaControlador {
 
     @GetMapping("")
     public String verCuentas(HttpServletRequest request, Model model) {
-        String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+        try {
+            String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+            if (emailUsuario == null) return "inicioSesion";
 
-        if (emailUsuario == null) {
-            return "inicioSesion";
+            List<CuentaDto> cuentas = cuentaServicio.obtenerCuentasPorEmail(emailUsuario);
+            model.addAttribute("cuentas", cuentas);
+            return "cuentas";
+        } catch (Exception e) {
+            logger.error("Error al obtener cuentas: " + e.getMessage());
+            return "error";
         }
-
-        List<CuentaDto> cuentas = cuentaServicio.obtenerCuentasPorEmail(emailUsuario);
-        model.addAttribute("cuentas", cuentas);
-        return "cuentas";
     }
 
+    // ✅ Nuevo método para devolver cuentas en formato JSON
     @GetMapping("/obtener")
     @ResponseBody
     public List<CuentaDto> obtenerCuentas(HttpServletRequest request) {
-        String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+        try {
+            String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+            if (emailUsuario == null) return List.of(); // Devolver lista vacía si no hay sesión
 
-        if (emailUsuario == null) {
-            return List.of(); // Devuelve una lista vacía si no hay usuario autenticado
+            return cuentaServicio.obtenerCuentasPorEmail(emailUsuario);
+        } catch (Exception e) {
+            logger.error("Error obteniendo cuentas: " + e.getMessage());
+            return List.of(); // Devolver lista vacía en caso de error
         }
-
-        return cuentaServicio.obtenerCuentasPorEmail(emailUsuario);
     }
 
     @PostMapping("/crear")
     public String crearCuenta(@ModelAttribute CuentaDto cuentaDto, HttpServletRequest request, Model model) {
-        String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+        try {
+            String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+            if (emailUsuario == null) return "inicioSesion";
 
-        if (emailUsuario == null) {
-            return "inicioSesion";
+            cuentaDto.setEmailUsuario(emailUsuario);
+            boolean creada = cuentaServicio.crearCuenta(cuentaDto);
+            if (!creada) {
+                model.addAttribute("mensaje", "⚠️ El IBAN ya está en uso o hubo un error.");
+                logger.warn("Intento fallido de crear cuenta con IBAN duplicado.");
+            }
+            return "cuentas";
+        } catch (Exception e) {
+            logger.error("Error al crear cuenta: " + e.getMessage());
+            return "error";
         }
-
-        cuentaDto.setEmailUsuario(emailUsuario); // 🔹 Solo se asigna el emailUsuario aquí
-
-        boolean creada = cuentaServicio.crearCuenta(cuentaDto);
-
-        if (!creada) {
-            model.addAttribute("mensaje", "⚠️ El IBAN ya está en uso o hubo un error al crear la cuenta.");
-        }
-        return "cuentas";
     }
 
     @PostMapping("/eliminar")
     @ResponseBody
     public String eliminarCuenta(@RequestParam("idCuenta") long idCuenta, HttpServletRequest request) {
-        String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+        try {
+            String emailUsuario = (String) request.getSession().getAttribute("emailUsuario");
+            if (emailUsuario == null) return "error";
 
-        if (emailUsuario == null) {
-            return "error"; // Indica que el usuario no está autenticado
+            boolean eliminada = cuentaServicio.eliminarCuenta(idCuenta);
+            if (eliminada) {
+                logger.info("Cuenta eliminada correctamente: " + idCuenta);
+                return "success";
+            } else {
+                logger.warn("Cuenta no encontrada: " + idCuenta);
+                return "error";
+            }
+        } catch (Exception e) {
+            logger.error("Error al eliminar cuenta: " + e.getMessage());
+            return "error";
         }
-
-        boolean eliminada = cuentaServicio.eliminarCuenta(idCuenta);
-        return eliminada ? "success" : "error";
     }
 }

@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+
+import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.servicios.LoginServicio;
 
 @Controller
 @RequestMapping("/login")
 public class LoginControlador {
+    private static final SesionLogger logger = new SesionLogger(LoginControlador.class);
 
     @Autowired
     private LoginServicio loginservicio;
@@ -22,22 +25,31 @@ public class LoginControlador {
     public void login(@RequestParam String emailUsuario,
                       @RequestParam String passwordUsuario,
                       HttpSession session,
-                      HttpServletResponse response) throws IOException {
+                      HttpServletResponse response) {
 
-        boolean isValidUser = loginservicio.verificarUsuario(emailUsuario, passwordUsuario);
+        try {
+            boolean isValidUser = loginservicio.verificarUsuario(emailUsuario, passwordUsuario);
 
-        if (isValidUser) {
-            String rol = loginservicio.getRol();
-            session.setAttribute("emailUsuario", emailUsuario);
-            session.setAttribute("rolUsuario", rol);
+            if (isValidUser) {
+                String rol = loginservicio.getRol();
+                session.setAttribute("emailUsuario", emailUsuario);
+                session.setAttribute("rolUsuario", rol);
 
-            if ("admin".equals(rol)) {
-                response.sendRedirect("administrador.jsp");
+                logger.info("Inicio de sesión exitoso para: " + emailUsuario + " con rol: " + rol);
+
+                if ("admin".equals(rol)) {
+                    response.sendRedirect("administrador.jsp");
+                } else {
+                    response.sendRedirect("index.jsp");
+                }
             } else {
-                response.sendRedirect("index.jsp");
+                logger.warn("Intento de inicio de sesión fallido para: " + emailUsuario);
+                response.sendRedirect("inicioSesion.jsp?error=true");
             }
-        } else {
-            response.sendRedirect("inicioSesion.jsp?error=true");
+        } catch (IOException e) {
+            logger.error("Error al redirigir después del login: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error inesperado en el proceso de login: " + e.getMessage());
         }
     }
 }

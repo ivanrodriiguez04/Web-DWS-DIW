@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
+import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.dtos.UsuarioDto;
 
 import java.util.Arrays;
@@ -13,6 +14,8 @@ import java.util.List;
 @Service
 public class AdministradorServicio {
 
+    private static final SesionLogger logger = new SesionLogger(AdministradorServicio.class);
+    
     private final String API_URL = "http://localhost:8081/api/administrador";
     private final RestTemplate restTemplate;
 
@@ -24,10 +27,11 @@ public class AdministradorServicio {
         try {
             ResponseEntity<UsuarioDto[]> response = restTemplate.getForEntity(API_URL + "/usuarios", UsuarioDto[].class);
             if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                logger.info("Usuarios obtenidos correctamente desde la API.");
                 return Arrays.asList(response.getBody());
             }
         } catch (RestClientException e) {
-            System.err.println("Error al obtener usuarios: " + e.getMessage());
+            logger.error("Error al obtener usuarios: " + e.getMessage());
         }
         return List.of();
     }
@@ -35,12 +39,12 @@ public class AdministradorServicio {
     public boolean eliminarUsuario(Long id) {
         try {
             restTemplate.delete(API_URL + "/eliminar/" + id);
-            System.out.println("Usuario eliminado: " + id);
+            logger.info("Usuario eliminado con éxito. ID: " + id);
             return true;
         } catch (HttpClientErrorException.NotFound e) {
-            System.err.println("Error: Usuario no encontrado con ID " + id);
+            logger.warn("Intento de eliminar usuario no encontrado. ID: " + id);
         } catch (RestClientException e) {
-            System.err.println("Error en la eliminación del usuario: " + e.getMessage());
+            logger.error("Error en la eliminación del usuario (ID " + id + "): " + e.getMessage());
         }
         return false;
     }

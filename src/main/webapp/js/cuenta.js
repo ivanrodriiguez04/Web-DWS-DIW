@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cargarCuentas();
 });
 
-// Función para cargar las cuentas desde el controlador del proyecto Web
+// Función para cargar las cuentas desde el nuevo endpoint JSON
 function cargarCuentas() {
     fetch("http://localhost:8080/cuentas/obtener")
         .then(response => {
@@ -53,16 +53,16 @@ function cargarCuentas() {
         });
 }
 
-// Función para eliminar una cuenta a través del controlador Web (CORREGIDO)
+// Función para eliminar una cuenta a través del controlador Web
 function eliminarCuenta(idCuenta) {
     if (!confirm("¿Seguro que deseas eliminar esta cuenta?")) return;
 
     fetch("http://localhost:8080/cuentas/eliminar", {
-        method: "POST",  // 🔹 Ahora es POST en lugar de DELETE
+        method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",  // 🔹 Necesario para enviar `form-data`
+            "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `idCuenta=${idCuenta}`  // 🔹 Enviado en el cuerpo de la petición
+        body: `idCuenta=${idCuenta}`
     })
     .then(response => {
         if (!response.ok) throw new Error("Error al eliminar la cuenta");
@@ -71,7 +71,7 @@ function eliminarCuenta(idCuenta) {
     .then(data => {
         if (data === "success") {
             alert("Cuenta eliminada con éxito.");
-            cargarCuentas();
+            cargarCuentas();  // Recargar la lista de cuentas
         } else {
             alert("Error al eliminar la cuenta.");
         }
