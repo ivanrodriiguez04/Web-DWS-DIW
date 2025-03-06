@@ -12,9 +12,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * Filtro que agrega el identificador de sesión al MDC para su uso en logs.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Component
 public class ConfLog extends OncePerRequestFilter {
 
+	/**
+	 * Agrega el identificador de sesión a los logs y luego lo elimina al finalizar la solicitud.
+	 *
+	 * @param request  La solicitud HTTP.
+	 * @param response La respuesta HTTP.
+	 * @param filterChain La cadena de filtros.
+	 * @throws ServletException Si ocurre un error en el filtro.
+	 * @throws IOException Si ocurre un error de entrada/salida.
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -32,5 +46,4 @@ public class ConfLog extends OncePerRequestFilter {
 			SesionManual.cerrarEscritor(sesionId);
 		}
 	}
-
 }

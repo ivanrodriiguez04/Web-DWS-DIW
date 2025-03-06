@@ -1,0 +1,6 @@
+2025-03-07 00:44:10 - [INFO] Respuesta del servidor: usuario
+2025-03-07 00:44:10 - [INFO] Inicio de sesión exitoso para: ivanrodriguezmarchan24@gmail.com con rol: usuario
+2025-03-07 00:44:12 - [ERROR] Error obteniendo cuentas para el usuario ivanrodriguezmarchan24@gmail.com: 404  on GET request for "http://localhost:8081/api/cuentas/usuario/email/ivanrodriguezmarchan24@gmail.com": "{"error":"No hay cuentas para este usuario"}"
+2025-03-07 00:44:17 - [INFO] IBAN generado: ES851036326453753
+2025-03-07 00:44:17 - [INFO] Cuenta creada exitosamente para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-07 00:44:17 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriguezmarchan24@gmail.com

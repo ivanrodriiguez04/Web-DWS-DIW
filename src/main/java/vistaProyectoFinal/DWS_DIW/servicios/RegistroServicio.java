@@ -17,6 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 
+/**
+ * Clase de servicio encargada de gestionar el registro de usuarios en la API.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class RegistroServicio {
     private static final SesionLogger logger = new SesionLogger(RegistroServicio.class);
@@ -29,6 +34,18 @@ public class RegistroServicio {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Registra un nuevo usuario en el sistema.
+     * @param nombreCompleto Nombre completo del usuario.
+     * @param telefono Teléfono del usuario.
+     * @param email Correo electrónico del usuario.
+     * @param password Contraseña del usuario.
+     * @param dni Documento de identidad del usuario.
+     * @param fotoDniFrontal Imagen frontal del DNI.
+     * @param fotoDniTrasero Imagen trasera del DNI.
+     * @param fotoUsuario Imagen del usuario.
+     * @return true si el usuario fue registrado con éxito, false en caso contrario.
+     */
     public boolean registrarUsuario(String nombreCompleto, String telefono, String email, String password, String dni,
                                     MultipartFile fotoDniFrontal, MultipartFile fotoDniTrasero, MultipartFile fotoUsuario) {
         try {
@@ -71,6 +88,11 @@ public class RegistroServicio {
         }
     }
 
+    /**
+     * Envía un correo de confirmación para activar la cuenta del usuario.
+     * @param email Correo electrónico del usuario.
+     * @param token Token de confirmación generado.
+     */
     private void enviarCorreoConfirmacion(String email, String token) {
         try {
             String asunto = "Confirma tu cuenta en InnovaBank";

@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Configuración de la aplicación web.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Configuration
 public class WebConfig {
 	@Bean

@@ -1,5 +1,10 @@
 package vistaProyectoFinal.DWS_DIW.dtos;
 
+/**
+ * DTO para representar los datos de inicio de sesión de un usuario.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 public class LoginDto {
 	private Long idUsuario;
     private String emailUsuario;

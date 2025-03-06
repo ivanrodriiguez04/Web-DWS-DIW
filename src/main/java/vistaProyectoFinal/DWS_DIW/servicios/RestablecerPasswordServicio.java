@@ -16,6 +16,11 @@ import org.springframework.web.client.RestTemplate;
 
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 
+/**
+ * Clase de servicio encargada de gestionar el restablecimiento de contraseñas a través de la API.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class RestablecerPasswordServicio {
     private static final SesionLogger logger = new SesionLogger(RestablecerPasswordServicio.class);
@@ -24,6 +29,14 @@ public class RestablecerPasswordServicio {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    /**
+     * Envía una solicitud a la API para restablecer la contraseña de un usuario.
+     * 
+     * @param email Correo electrónico del usuario que solicita el restablecimiento.
+     * @param token Token de seguridad para validar la solicitud.
+     * @param nuevaContrasena Nueva contraseña que se establecerá.
+     * @return true si la contraseña fue restablecida correctamente, false en caso contrario.
+     */
     public boolean enviarNuevaContrasena(String email, String token, String nuevaContrasena) {
         try {
             RestTemplate restTemplate = new RestTemplate();

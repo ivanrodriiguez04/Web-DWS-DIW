@@ -11,6 +11,11 @@ import vistaProyectoFinal.DWS_DIW.dtos.UsuarioDto;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Clase de servicio que maneja la obtención y eliminación de usuarios administradores desde la API externa.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class AdministradorServicio {
 
@@ -19,10 +24,18 @@ public class AdministradorServicio {
     private final String API_URL = "http://localhost:8081/api/administrador";
     private final RestTemplate restTemplate;
 
+    /**
+     * Constructor con inyección de RestTemplate.
+     * @param restTemplate Cliente REST para realizar peticiones HTTP.
+     */
     public AdministradorServicio(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Obtiene la lista de usuarios administradores desde la API.
+     * @return Lista de objetos UsuarioDto o lista vacía en caso de error.
+     */
     public List<UsuarioDto> obtenerUsuarios() {
         try {
             ResponseEntity<UsuarioDto[]> response = restTemplate.getForEntity(API_URL + "/usuarios", UsuarioDto[].class);
@@ -36,6 +49,11 @@ public class AdministradorServicio {
         return List.of();
     }
 
+    /**
+     * Elimina un usuario administrador de la API.
+     * @param id Identificador del usuario a eliminar.
+     * @return true si la eliminación fue exitosa, false en caso contrario.
+     */
     public boolean eliminarUsuario(Long id) {
         try {
             restTemplate.delete(API_URL + "/eliminar/" + id);

@@ -17,6 +17,11 @@ import org.springframework.web.client.RestTemplate;
 
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 
+/**
+ * Clase de servicio encargada de gestionar la recuperación de contraseña a través de la API.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class RecuperarPasswordServicio {
     private static final SesionLogger logger = new SesionLogger(RecuperarPasswordServicio.class);
@@ -25,16 +30,25 @@ public class RecuperarPasswordServicio {
     @Autowired
     private EmailServicio emailServicio;
 
+    /**
+     * Envía un correo electrónico con un enlace para la recuperación de contraseña.
+     * @param email Email del usuario.
+     * @param urlBase URL base del sitio para generar el enlace de recuperación.
+     * @return true si el correo fue enviado correctamente, false en caso contrario.
+     */
     public boolean enviarCorreoRecuperacion(String email, String urlBase) {
         try {
+            // Generación de un token único y su fecha de expiración
             String token = UUID.randomUUID().toString();
             LocalDateTime fechaExpiracion = LocalDateTime.now().plusMinutes(30);
 
+            // Guardar el token en la API
             if (!guardarTokenEnAPI(email, token, fechaExpiracion)) {
                 logger.warn("Error al guardar el token en la API.");
                 return false;
             }
 
+            // Construcción del mensaje de recuperación
             String enlaceRecuperacion = urlBase + "/restablecerPassword.jsp?token=" + token + "&email=" + email;
             String mensaje = "<p>Hola,</p>"
                     + "<p>Has solicitado recuperar tu contraseña.</p>"
@@ -42,6 +56,7 @@ public class RecuperarPasswordServicio {
                     + "<p><a href='" + enlaceRecuperacion + "'>Restablecer contraseña</a></p>"
                     + "<p>Si no solicitaste esto, ignora este correo.</p>";
 
+            // Envío del correo
             boolean enviado = emailServicio.enviarCorreo(email, "Recuperación de contraseña", mensaje);
             if (enviado) {
                 logger.info("Correo de recuperación enviado a: " + email);
@@ -55,6 +70,13 @@ public class RecuperarPasswordServicio {
         }
     }
 
+    /**
+     * Guarda el token de recuperación de contraseña en la API.
+     * @param email Email del usuario.
+     * @param token Token generado para la recuperación.
+     * @param fechaExpiracion Fecha de expiración del token.
+     * @return true si el token fue guardado correctamente, false en caso contrario.
+     */
     private boolean guardarTokenEnAPI(String email, String token, LocalDateTime fechaExpiracion) {
         try {
             RestTemplate restTemplate = new RestTemplate();

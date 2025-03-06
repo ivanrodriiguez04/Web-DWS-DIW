@@ -1,0 +1,7 @@
+2025-03-07 00:32:47 - [INFO] Respuesta del servidor: usuario
+2025-03-07 00:32:47 - [INFO] Inicio de sesión exitoso para: ivanrodriiguez04@gmail.com con rol: usuario
+2025-03-07 00:32:49 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriiguez04@gmail.com
+2025-03-07 00:32:54 - [INFO] IBAN generado: ES823163327416971
+2025-03-07 00:32:54 - [ERROR] Excepción al crear cuenta para el usuario ivanrodriiguez04@gmail.com: 404  on POST request for "http://localhost:8081/api/cuentas/crear": "{"timestamp":"2025-03-06T23:32:54.569+00:00","status":404,"error":"Not Found","path":"/api/cuentas/crear"}"
+2025-03-07 00:32:54 - [WARN] Intento fallido de crear cuenta con IBAN duplicado.
+2025-03-07 00:32:54 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriiguez04@gmail.com

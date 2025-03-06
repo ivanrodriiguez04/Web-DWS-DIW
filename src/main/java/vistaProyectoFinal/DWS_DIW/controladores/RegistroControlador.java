@@ -12,19 +12,44 @@ import jakarta.servlet.http.HttpServletRequest;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.servicios.RegistroServicio;
 
+/**
+ * Controlador que gestiona el proceso de registro de nuevos usuarios.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Controller
 @RequestMapping("/registro")
 public class RegistroControlador {
+    
     private static final SesionLogger logger = new SesionLogger(RegistroControlador.class);
 
     @Autowired
     private RegistroServicio registroServicio;
 
+    /**
+     * Muestra el formulario de registro.
+     * 
+     * @return La vista del formulario de registro.
+     */
     @GetMapping
     public String mostrarFormularioRegistro() {
         return "registro"; // Asegúrate de que "registro.jsp" existe en la carpeta correcta
     }
 
+    /**
+     * Maneja el registro de un nuevo usuario.
+     * 
+     * @param nombreCompleto Nombre completo del usuario.
+     * @param telefono Número de teléfono del usuario.
+     * @param email Correo electrónico del usuario.
+     * @param password Contraseña del usuario.
+     * @param dni Documento de identidad del usuario.
+     * @param fotoDniFrontal Imagen frontal del DNI.
+     * @param fotoDniTrasero Imagen trasera del DNI.
+     * @param fotoUsuario Fotografía del usuario.
+     * @param request Objeto de solicitud HTTP.
+     * @return La vista a la que se redirige el usuario después del intento de registro.
+     */
     @PostMapping
     public String registrarUsuario(
             @RequestParam("nombreCompletoUsuario") String nombreCompleto,
@@ -38,14 +63,14 @@ public class RegistroControlador {
             HttpServletRequest request) {
 
         try {
-            // 🔹 Validar que todas las imágenes fueron subidas
+            // Validar que todas las imágenes fueron subidas
             if (fotoDniFrontal.isEmpty() || fotoDniTrasero.isEmpty() || fotoUsuario.isEmpty()) {
                 request.setAttribute("mensaje", "Debe subir todas las imágenes.");
                 logger.warn("Intento de registro fallido: faltan imágenes para el usuario " + email);
                 return "registro";
             }
 
-            // 🔹 Intentar registrar al usuario
+            // Intentar registrar al usuario
             boolean registrado = registroServicio.registrarUsuario(
                     nombreCompleto, telefono, email, password, dni,
                     fotoDniFrontal, fotoDniTrasero, fotoUsuario);

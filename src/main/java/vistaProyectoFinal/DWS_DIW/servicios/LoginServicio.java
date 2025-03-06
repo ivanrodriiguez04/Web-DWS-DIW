@@ -13,11 +13,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.dtos.LoginDto;
 
+/**
+ * Clase de servicio encargada de verificar las credenciales de los usuarios a través de la API.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class LoginServicio {
     private static final SesionLogger logger = new SesionLogger(LoginServicio.class);
     private String rol = "";
 
+    /**
+     * Verifica si un usuario con el correo y contraseña proporcionados es válido.
+     * @param correo Email del usuario.
+     * @param password Contraseña del usuario.
+     * @return true si las credenciales son correctas, false en caso contrario.
+     */
     public boolean verificarUsuario(String correo, String password) {
         boolean todoOk = false;
         try {
@@ -27,18 +38,22 @@ public class LoginServicio {
             conexion.setRequestProperty("Content-Type", "application/json");
             conexion.setDoOutput(true);
 
+            // Creación del objeto LoginDto con las credenciales del usuario
             LoginDto loginRequest = new LoginDto();
             loginRequest.setEmailUsuario(correo);
             loginRequest.setPasswordUsuario(password);
 
+            // Conversión del objeto a formato JSON
             ObjectMapper mapper = new ObjectMapper();
             String jsonInput = mapper.writeValueAsString(loginRequest);
 
+            // Envío de la solicitud con el JSON en el cuerpo
             try (OutputStream ot = conexion.getOutputStream()) {
                 ot.write(jsonInput.getBytes());
                 ot.flush();
             }
 
+            // Verificación de la respuesta del servidor
             int responseCode = conexion.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 try (BufferedReader in = new BufferedReader(new InputStreamReader(conexion.getInputStream()))) {
@@ -51,6 +66,7 @@ public class LoginServicio {
                     String respuesta = response.toString();
                     logger.info("Respuesta del servidor: " + respuesta);
 
+                    // Verificación del rol del usuario
                     if ("admin".equals(respuesta) || "usuario".equals(respuesta)) {
                         this.rol = respuesta;
                         todoOk = true;
@@ -67,6 +83,10 @@ public class LoginServicio {
         return todoOk;
     }
 
+    /**
+     * Obtiene el rol del usuario autenticado.
+     * @return Rol del usuario ("admin" o "usuario").
+     */
     public String getRol() {
         return rol;
     }

@@ -9,6 +9,11 @@ import org.springframework.web.client.RestTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 
+/**
+ * Controlador encargado de procesar la confirmación de cuentas mediante un token.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Controller
 public class ConfirmacionControlador {
 
@@ -18,6 +23,13 @@ public class ConfirmacionControlador {
     @Autowired
     private RestTemplate restTemplate;
 
+    /**
+     * Procesa la confirmación de una cuenta utilizando un token.
+     * 
+     * @param token   Token de confirmación proporcionado en la solicitud.
+     * @param request Objeto HttpServletRequest para agregar mensajes de respuesta.
+     * @return La vista correspondiente dependiendo del resultado de la confirmación.
+     */
     @GetMapping("/confirmar")
     public String confirmarCuenta(@RequestParam("token") String token, HttpServletRequest request) {
         try {

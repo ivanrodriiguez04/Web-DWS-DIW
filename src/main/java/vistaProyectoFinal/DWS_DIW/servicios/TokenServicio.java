@@ -7,11 +7,22 @@ import org.springframework.stereotype.Service;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.dtos.RegistroDto;
 
+/**
+ * Clase de servicio encargada de gestionar los tokens temporales asociados a registros de usuarios.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Service
 public class TokenServicio {
     private static final SesionLogger logger = new SesionLogger(TokenServicio.class);
     private Map<String, RegistroDto> tokensPendientes = new HashMap<>();
 
+    /**
+     * Guarda un token temporal asociado a un registro de usuario.
+     * 
+     * @param registroDto Datos del usuario en proceso de registro.
+     * @param token Token único generado para la confirmación del registro.
+     */
     public void guardarTokenTemporal(RegistroDto registroDto, String token) {
         try {
             tokensPendientes.put(token, registroDto);
@@ -21,6 +32,12 @@ public class TokenServicio {
         }
     }
 
+    /**
+     * Obtiene el registro de usuario asociado a un token específico.
+     * 
+     * @param token Token asociado al registro del usuario.
+     * @return RegistroDto con los datos del usuario si el token existe, null en caso contrario.
+     */
     public RegistroDto obtenerRegistroPorToken(String token) {
         try {
             RegistroDto registro = tokensPendientes.get(token);
@@ -36,6 +53,11 @@ public class TokenServicio {
         }
     }
 
+    /**
+     * Elimina un token temporal del almacenamiento.
+     * 
+     * @param token Token que se desea eliminar.
+     */
     public void eliminarToken(String token) {
         try {
             if (tokensPendientes.containsKey(token)) {

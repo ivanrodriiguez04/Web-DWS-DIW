@@ -1,0 +1,7 @@
+2025-03-07 00:41:07 - [INFO] Respuesta del servidor: usuario
+2025-03-07 00:41:07 - [INFO] Inicio de sesión exitoso para: ivanrodriguezmarchan24@gmail.com con rol: usuario
+2025-03-07 00:41:10 - [ERROR] Error obteniendo cuentas para el usuario ivanrodriguezmarchan24@gmail.com: 404  on GET request for "http://localhost:8081/api/cuentas/usuario/email/ivanrodriguezmarchan24@gmail.com": "{"error":"No hay cuentas para este usuario"}"
+2025-03-07 00:41:14 - [INFO] IBAN generado: ES798744809442169
+2025-03-07 00:41:14 - [ERROR] Excepción al crear cuenta para el usuario ivanrodriguezmarchan24@gmail.com: 404  on POST request for "http://localhost:8081/api/cuentas/crear": "{"timestamp":"2025-03-06T23:41:14.902+00:00","status":404,"error":"Not Found","path":"/api/cuentas/crear"}"
+2025-03-07 00:41:14 - [WARN] Intento fallido de crear cuenta con IBAN duplicado.
+2025-03-07 00:41:14 - [ERROR] Error obteniendo cuentas para el usuario ivanrodriguezmarchan24@gmail.com: 404  on GET request for "http://localhost:8081/api/cuentas/usuario/email/ivanrodriguezmarchan24@gmail.com": "{"error":"No hay cuentas para este usuario"}"

@@ -10,13 +10,27 @@ import jakarta.servlet.http.HttpServletRequest;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.servicios.RecuperarPasswordServicio;
 
+/**
+ * Controlador que gestiona la recuperación de contraseña de los usuarios.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Controller
 public class RecuperarPasswordControlador {
+    
     private static final SesionLogger logger = new SesionLogger(RecuperarPasswordControlador.class);
 
     @Autowired
     private RecuperarPasswordServicio recuperarPasswordServicio;
     
+    /**
+     * Maneja el envío del correo de recuperación de contraseña.
+     * 
+     * @param email El correo electrónico del usuario.
+     * @param request La solicitud HTTP para obtener la URL base del servidor.
+     * @param redirectAttributes Atributos para redirigir mensajes de éxito o error.
+     * @return La vista a la que se redirige el usuario.
+     */
     @PostMapping("/recuperar")
     public String enviarCorreoRecuperacion(
             @RequestParam("emailUsuario") String email,

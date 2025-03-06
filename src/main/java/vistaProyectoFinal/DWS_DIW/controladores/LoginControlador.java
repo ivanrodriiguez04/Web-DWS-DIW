@@ -13,20 +13,33 @@ import java.io.IOException;
 import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 import vistaProyectoFinal.DWS_DIW.servicios.LoginServicio;
 
+/**
+ * Controlador que gestiona el inicio de sesión de los usuarios.
+ * 
+ * @author irodhan - 06/03/2025
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginControlador {
+    
     private static final SesionLogger logger = new SesionLogger(LoginControlador.class);
 
     @Autowired
     private LoginServicio loginservicio;
 
+    /**
+     * Maneja el proceso de inicio de sesión.
+     *
+     * @param emailUsuario    El correo electrónico del usuario.
+     * @param passwordUsuario La contraseña del usuario.
+     * @param session         La sesión HTTP para almacenar información del usuario.
+     * @param response        La respuesta HTTP para redirigir al usuario.
+     */
     @PostMapping
     public void login(@RequestParam String emailUsuario,
                       @RequestParam String passwordUsuario,
                       HttpSession session,
                       HttpServletResponse response) {
-
         try {
             boolean isValidUser = loginservicio.verificarUsuario(emailUsuario, passwordUsuario);
 
