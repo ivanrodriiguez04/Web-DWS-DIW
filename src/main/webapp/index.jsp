@@ -10,17 +10,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Principal</title>
+    <title>Página Principal - InnovaBank</title>
     <link rel="icon" type="image/png" href="imagenes/favicon.png">
     <link rel="stylesheet" href="css/nav.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="css/carrusel.css"> <!-- Archivo CSS del carrusel -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+          rel="stylesheet">
 </head>
 
 <body>
-	<nav>
+    <nav>
         <div class="container-fluid">
             <div class="nav-left">
                 <a href="index.jsp" class="logo">InnovaBank</a>
@@ -45,13 +44,47 @@
         </div>
     </nav>
 
-    <div class="main-content">
-        CARRUSEL DE FOTOS
+    <!-- Texto de Bienvenida -->
+    <div class="container text-center mt-4">
+        <h1>Bienvenido a InnovaBank</h1>
+        <p>Tu banco de confianza, innovando para brindarte los mejores servicios financieros.</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
-            integrity="sha384-lpyYMi6MnS1Rm81zBhcR+0Apbwo38/1g1TVtpgZCOOeq60eVjYkfP0zCzZmS5Fb5" 
-            crossorigin="anonymous"></script>
+    <!-- Carrusel de imágenes -->
+    <div id="carruselBanco" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000">
+                <img src="imagenes/ahorrar.jpg" class="d-block w-100" alt="Imagen 1">
+            </div>
+            <div class="carousel-item" data-bs-interval="10000">
+                <img src="imagenes/asesoria.jpg" class="d-block w-100" alt="Imagen 2">
+            </div>
+            <div class="carousel-item" data-bs-interval="10000">
+                <img src="imagenes/personal.jpg" class="d-block w-100" alt="Imagen 3">
+            </div>
+        </div>
+        <!-- Botones de control manual -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carruselBanco" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carruselBanco" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Inicializar manualmente el carrusel
+        document.addEventListener("DOMContentLoaded", function() {
+            var myCarousel = new bootstrap.Carousel(document.querySelector("#carruselBanco"), {
+                interval: 10000, // 10 segundos
+                ride: "carousel"
+            });
+        });
+    </script>
 
 </body>
 </html>

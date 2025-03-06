@@ -2,8 +2,8 @@
 <%@ page session="true" %>
 
 <%
-    if (session != null) {
-        session.invalidate(); // Invalidar la sesión
+    if (request.getSession(false) != null) { // Verifica si hay una sesión activa
+        request.getSession(false).invalidate(); // Invalidar la sesión
         System.out.println("Sesión cerrada correctamente.");
     }
     response.sendRedirect("index.jsp"); // Redirigir al inicio
