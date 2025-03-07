@@ -1,0 +1,10 @@
+2025-03-07 01:35:08 - [INFO] Cuenta confirmada correctamente.
+2025-03-07 01:36:48 - [INFO] Token de recuperación guardado correctamente en la API para el email: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:36:49 - [INFO] Correo enviado exitosamente a: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:36:49 - [INFO] Correo de recuperación enviado a: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:36:49 - [INFO] Correo de recuperación enviado con éxito a: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:37:44 - [INFO] Enviando solicitud de restablecimiento de contraseña para: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:37:44 - [INFO] Contraseña restablecida exitosamente para: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:37:44 - [INFO] Contraseña restablecida con éxito para el usuario: ivanrodriguezmarchan24@gmail.com
+2025-03-07 01:37:55 - [INFO] Respuesta del servidor: admin
+2025-03-07 01:37:55 - [INFO] Inicio de sesión exitoso para: admin@admin.com con rol: admin
