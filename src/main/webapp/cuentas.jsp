@@ -3,7 +3,13 @@
 <%@ page import="vistaProyectoFinal.DWS_DIW.dtos.CuentaDto"%>
 
 <%
-String emailUsuario = (String) session.getAttribute("emailUsuario");
+    String rolUsuario = (String) session.getAttribute("rolUsuario");
+    if (!"usuario".equals(rolUsuario)) {
+        response.sendRedirect("index.jsp"); // Redirige si no es usuario
+        return;
+    }
+
+    String emailUsuario = (String) session.getAttribute("emailUsuario");
 %>
 
 <!DOCTYPE html>
@@ -14,11 +20,8 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 <title>Mis Cuentas</title>
 
 <!-- ✅ Corrección de rutas absolutas -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/nav.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/nav.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<nav>
@@ -30,8 +33,7 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 				<%
 				if (emailUsuario == null) {
 				%>
-				<a href="registro.jsp" class="hazteCliente">Hazte cliente</a> <a
-					href="inicioSesion.jsp" class="login-cuentas">Login</a>
+				<a href="registro.jsp" class="hazteCliente">Hazte cliente</a> <a href="inicioSesion.jsp" class="login-cuentas">Login</a>
 				<%
 				} else {
 				%>
@@ -41,8 +43,7 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 					</a>
 					<ul class="dropdown-menu dropdown-menu-end">
 						<li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
-						<li><a href="logout.jsp" class="dropdown-item">Cerrar
-								sesión</a></li>
+						<li><a href="logout.jsp" class="dropdown-item">Cerrar sesión</a></li>
 					</ul>
 				</div>
 				<%
@@ -56,8 +57,7 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 		<h1 class="mb-3">Mis Cuentas</h1>
 
 		<div class="mb-3">
-			<a href="<%=request.getContextPath()%>/crearCuenta.jsp"
-				class="btn btn-primary">Crear Cuenta</a>
+			<a href="<%=request.getContextPath()%>/crearCuenta.jsp" class="btn btn-primary">Crear Cuenta</a>
 		</div>
 
 		<%

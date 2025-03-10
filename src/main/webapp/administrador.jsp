@@ -5,6 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
+    String rolUsuario = (String) session.getAttribute("rolUsuario");
+    if (!"admin".equals(rolUsuario)) {
+        response.sendRedirect("index.jsp"); // Redirige si no es admin
+        return;
+    }
+
     List<UsuarioDto> usuarios = (List<UsuarioDto>) request.getAttribute("usuarios");
     String mensaje = (String) request.getAttribute("mensaje");
     String emailUsuario = (String) session.getAttribute("emailUsuario");
