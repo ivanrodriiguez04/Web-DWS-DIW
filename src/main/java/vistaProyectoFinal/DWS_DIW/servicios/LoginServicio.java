@@ -67,7 +67,7 @@ public class LoginServicio {
                     logger.info("Respuesta del servidor: " + respuesta);
 
                     // Verificación del rol del usuario
-                    if ("admin".equals(respuesta) || "usuario".equals(respuesta)) {
+                    if ("superAdmin".equals(respuesta) ||"admin".equals(respuesta) || "usuario".equals(respuesta)) {
                         this.rol = respuesta;
                         todoOk = true;
                     } else {

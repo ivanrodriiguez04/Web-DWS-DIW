@@ -50,7 +50,9 @@ public class LoginControlador {
 
                 logger.info("Inicio de sesión exitoso para: " + emailUsuario + " con rol: " + rol);
 
-                if ("admin".equals(rol)) {
+                if ("superAdmin".equals(rol)) {
+                    response.sendRedirect("superAdministrador.jsp");
+                }else if ("admin".equals(rol)) {
                     response.sendRedirect("administrador.jsp");
                 } else {
                     response.sendRedirect("index.jsp");
