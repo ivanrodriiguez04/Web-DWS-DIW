@@ -1,0 +1,6 @@
+2025-04-18 23:21:03 - [INFO] Respuesta del servidor: usuario
+2025-04-18 23:21:03 - [INFO] Inicio de sesión exitoso para: ivanrodriiguez04@gmail.com con rol: usuario
+2025-04-18 23:21:05 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriiguez04@gmail.com
+2025-04-18 23:21:19 - [ERROR] Error al crear cuenta: Error while extracting response for type [interface java.util.Map] and content type [application/json]
+2025-04-18 23:21:19 - [WARN] Intento fallido de crear cuenta con IBAN duplicado.
+2025-04-18 23:21:19 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriiguez04@gmail.com

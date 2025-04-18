@@ -42,8 +42,9 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="userDropdown">
 						<li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
-						<li><a href="logout.jsp" class="dropdown-item">Cerrar
-								Sesión</a></li>
+						<li><a href="<%=request.getContextPath()%>/logout.jsp"
+							class="dropdown-item">Cerrar Sesión</a></li>
+
 					</ul>
 				</div>
 				<%
@@ -99,7 +100,18 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 				</div>
 
 				<!-- Segunda columna -->
+
 				<div class="col-md-6">
+					<div class="mb-3">
+						<label>Ciudad:</label> <select id="ciudadUsuario"
+							name="ciudadUsuario" class="form-control" required>
+							<option value="">Seleccione una ciudad</option>
+							<option value="Madrid">Madrid</option>
+							<option value="Barcelona">Barcelona</option>
+							<option value="Valencia">Valencia</option>
+							<option value="Sevilla">Sevilla</option>
+						</select>
+					</div>
 					<div class="mb-3">
 						<label>DNI:</label> <input type="text" id="dniUsuario"
 							name="dniUsuario" class="form-control"

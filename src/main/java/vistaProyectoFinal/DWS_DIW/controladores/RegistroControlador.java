@@ -56,6 +56,7 @@ public class RegistroControlador {
             @RequestParam("telefonoUsuario") String telefono,
             @RequestParam("emailUsuario") String email,
             @RequestParam("passwordUsuario") String password,
+            @RequestParam("ciudadUsuario") String ciudad,
             @RequestParam("dniUsuario") String dni,
             @RequestParam("fotoDniFrontalUsuario") MultipartFile fotoDniFrontal,
             @RequestParam("fotoDniTraseroUsuario") MultipartFile fotoDniTrasero,
@@ -72,7 +73,7 @@ public class RegistroControlador {
 
             // Intentar registrar al usuario
             boolean registrado = registroServicio.registrarUsuario(
-                    nombreCompleto, telefono, email, password, dni,
+                    nombreCompleto, telefono, email, password, ciudad,dni,
                     fotoDniFrontal, fotoDniTrasero, fotoUsuario);
 
             if (registrado) {

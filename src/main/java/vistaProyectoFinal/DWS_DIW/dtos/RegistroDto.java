@@ -17,6 +17,8 @@ public class RegistroDto {
     private String emailUsuario;
     /** Contraseña del usuario. */
     private String passwordUsuario;
+    
+    private String ciudadUsuario;
     /** DNI del usuario. */
     private String dniUsuario;
     /** Imagen frontal del DNI del usuario. */
@@ -44,7 +46,7 @@ public class RegistroDto {
      * @param token Token de confirmación.
      */
     public RegistroDto(long idUsuario, String nombreCompletoUsuario, String telefonoUsuario, String emailUsuario, 
-                       String passwordUsuario, String dniUsuario, byte[] fotoDniFrontalUsuario, 
+                       String passwordUsuario, String ciudadUsuario,String dniUsuario, byte[] fotoDniFrontalUsuario, 
                        byte[] fotoDniTraseroUsuario, byte[] fotoUsuario, String token) {
         this.idUsuario = idUsuario;
         this.nombreCompletoUsuario = nombreCompletoUsuario;
@@ -52,6 +54,7 @@ public class RegistroDto {
         this.rolUsuario = "usuario"; // Valor por defecto
         this.emailUsuario = emailUsuario;
         this.passwordUsuario = passwordUsuario;
+        this.ciudadUsuario = ciudadUsuario;
         this.dniUsuario = dniUsuario;
         this.fotoDniFrontalUsuario = fotoDniFrontalUsuario;
         this.fotoDniTraseroUsuario = fotoDniTraseroUsuario;
@@ -73,6 +76,8 @@ public class RegistroDto {
     public void setEmailUsuario(String emailUsuario) { this.emailUsuario = emailUsuario; }
     public String getPasswordUsuario() { return passwordUsuario; }
     public void setPasswordUsuario(String passwordUsuario) { this.passwordUsuario = passwordUsuario; }
+    public String getCiudadUsuario() { return ciudadUsuario; }
+    public void setCiudadUsuario(String ciudadUsuario) { this.ciudadUsuario = ciudadUsuario; }
     public String getDniUsuario() { return dniUsuario; }
     public void setDniUsuario(String dniUsuario) { this.dniUsuario = dniUsuario; }
     public byte[] getFotoDniFrontalUsuario() { return fotoDniFrontalUsuario; }

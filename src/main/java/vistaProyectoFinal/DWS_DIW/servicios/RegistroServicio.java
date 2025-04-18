@@ -46,7 +46,7 @@ public class RegistroServicio {
      * @param fotoUsuario Imagen del usuario.
      * @return true si el usuario fue registrado con éxito, false en caso contrario.
      */
-    public boolean registrarUsuario(String nombreCompleto, String telefono, String email, String password, String dni,
+    public boolean registrarUsuario(String nombreCompleto, String telefono, String email, String password,  String ciudad,String dni,
                                     MultipartFile fotoDniFrontal, MultipartFile fotoDniTrasero, MultipartFile fotoUsuario) {
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -59,6 +59,7 @@ public class RegistroServicio {
             datosUsuario.put("telefonoUsuario", telefono);
             datosUsuario.put("emailUsuario", email);
             datosUsuario.put("passwordUsuario", passwordEncriptada);
+            datosUsuario.put("ciudadUsuario", ciudad);
             datosUsuario.put("dniUsuario", dni);
             datosUsuario.put("token", token);
 
