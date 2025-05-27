@@ -44,6 +44,7 @@ String idUsuario = (String) session.getAttribute("idUsuario"); // Obtener idUsua
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="userDropdown">
 						<li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>
+						<li><a href="transferencias.jsp" class="dropdown-item">Transferencias</a></li>
 						<li><a href="<%=request.getContextPath()%>/logout.jsp"
 							class="dropdown-item">Cerrar Sesión</a></li>
 

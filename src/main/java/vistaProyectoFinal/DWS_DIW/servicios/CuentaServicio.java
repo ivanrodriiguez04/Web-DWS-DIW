@@ -221,4 +221,27 @@ public class CuentaServicio {
             return false;
         }
     }
+    
+    public boolean modificarSaldoCuenta(String ibanCuenta, double nuevoSaldo) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            Map<String, Object> body = Map.of(
+                "ibanCuenta", ibanCuenta,
+                "nuevoSaldo", nuevoSaldo
+            );
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            ResponseEntity<Void> response = restTemplate.exchange(
+                "http://localhost:8081/api/cuentas/modificar-saldo",
+                HttpMethod.PUT,
+                request,
+                Void.class
+            );
+            return response.getStatusCode().is2xxSuccessful();
+        } catch (Exception e) {
+            logger.error("Error al modificar saldo: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

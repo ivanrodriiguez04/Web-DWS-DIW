@@ -19,9 +19,11 @@ function cargarUsuarios() {
                         <td>${usuario.idUsuario}</td>
                         <td>${usuario.nombreCompletoUsuario}</td>
                         <td>${usuario.emailUsuario}</td>
-                        <td>
-                            <button class="btn btn-danger" onclick="confirmarEliminacion(${usuario.idUsuario})">Eliminar</button>
-                        </td>
+						<td>
+						    <button class="btn btn-danger" onclick="confirmarEliminacion(${usuario.idUsuario})">Eliminar</button>
+						    <a href="verCuentasUsuario.jsp?email=${encodeURIComponent(usuario.emailUsuario)}" class="btn btn-primary ms-2">Ver Cuentas</a>
+						</td>
+
                     `;
                     tablaUsuarios.appendChild(fila);
                 });
