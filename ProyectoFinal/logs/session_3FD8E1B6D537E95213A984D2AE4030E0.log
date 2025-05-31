@@ -1,0 +1,5 @@
+2025-05-29 03:22:22 - [WARN] Error: Código de respuesta no OK. Código: 401
+2025-05-29 03:22:22 - [WARN] Intento de inicio de sesión fallido para: ivanrodriiguez04@gmail.com
+2025-05-29 03:22:28 - [INFO] Respuesta del servidor: usuario
+2025-05-29 03:22:28 - [INFO] Inicio de sesión exitoso para: ivanrodriiguez04@gmail.com con rol: usuario
+2025-05-29 03:22:31 - [INFO] Cuentas obtenidas correctamente para el usuario: ivanrodriiguez04@gmail.com

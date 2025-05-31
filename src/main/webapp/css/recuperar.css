@@ -1,35 +1,21 @@
-/* Contenedor principal */
+/* GENERAL */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Contenedor del formulario */
-.Recuperar {
-    background-color: #033880;
-    border: 3px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    margin: auto; /* Centra horizontal y verticalmente respecto al contenedor */
-}
-
-/* Ajustes de texto */
-label, h3 {
-    color:#d9d9d9;
-}
-
-/* CSS para el nav */
+/* ===================== NAV ===================== */
 .container-fluid {
     background-color: #033880;
-    height: 70px;
+    min-height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 15px;
+    flex-wrap: wrap;
 }
 
 .nav-left {
@@ -40,7 +26,6 @@ label, h3 {
 
 .logo {
     color: #d9d9d9;
-    font-family: sans-serif;
     font-weight: bold;
     font-size: 30px;
     text-decoration: none;
@@ -63,14 +48,145 @@ label, h3 {
 .nav-right {
     display: flex;
     gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .login-cuentas {
     color: #d9d9d9;
     text-decoration: none;
 }
-
 .login-cuentas:hover {
     color: #d9d9d9;
     text-decoration: none;
+}
+
+/* 🔄 Estilo del enlace con el email (dropdown) */
+.email-link {
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email-link:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
+
+/* MAIN */
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
+
+/* FORMULARIO */
+.Recuperar {
+    background-color: #033880;
+    border: 3px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+}
+
+label,
+h3 {
+    color: #d9d9d9;
+}
+
+.alert {
+    margin-top: 15px;
+}
+
+/* FOOTER */
+footer {
+    background-color: #033880;
+    color: #d9d9d9;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+footer a {
+    color: #d9d9d9;
+    text-decoration: none;
+    margin: 0 10px;
+}
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* =================== RESPONSIVE =================== */
+
+/* Móviles pequeños */
+@media (max-width: 576px) {
+    .container-fluid {
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .nav-left {
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 14px;
+    }
+
+    .Recuperar {
+        padding: 20px;
+        border-width: 2px;
+    }
+
+    .btn {
+        font-size: 14px;
+    }
+
+    footer {
+        font-size: 14px;
+        padding: 15px 5px;
+    }
+
+    footer a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+/* Tablets */
+@media (min-width: 577px) and (max-width: 991px) {
+    .logo {
+        font-size: 26px;
+    }
+
+    .nav-right {
+        gap: 15px;
+        font-size: 15px;
+    }
+
+    .Recuperar {
+        max-width: 90%;
+        padding: 25px;
+    }
+}
+
+/* Pantallas grandes */
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }

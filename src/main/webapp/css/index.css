@@ -1,34 +1,20 @@
 /* ===================== GLOBAL ===================== */
-body {
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* El main ocupa el espacio disponible para "empujar" el footer abajo */
 main {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px 15px;
-}
-
-/* ===================== FORMULARIO ===================== */
-.Formulario {
-    background-color: #033880;
-    border: 3px solid black;
-    border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
-    width: 100%;
-    max-width: 900px;
-    padding: 30px;
-    color: #d9d9d9;
-}
-
-label, h3 {
-    color: #d9d9d9;
 }
 
 /* ===================== NAV ===================== */
@@ -97,6 +83,29 @@ label, h3 {
     text-decoration: underline;
 }
 
+/* ===================== CARRUSEL ===================== */
+.carousel {
+    max-width: 900px;
+    margin: 20px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+}
+
 /* ===================== FOOTER ===================== */
 footer {
     background-color: #033880;
@@ -131,57 +140,43 @@ footer a:hover {
 }
 
 /* ===================== RESPONSIVE ===================== */
-@media (min-width: 1200px) {
-    .Formulario {
-        padding: 40px 60px;
-        max-width: 1000px;
-    }
 
-    .Formulario h3 {
-        font-size: 28px;
-    }
-
-    .Formulario .form-control,
-    .Formulario select,
-    .Formulario input[type="file"] {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    button[type="submit"] {
-        font-size: 18px;
-        padding: 12px;
+/* Dispositivos pequeños (teléfonos hasta 576px) */
+@media (max-width: 576px) {
+    .logo {
+        font-size: 20px;
     }
 
     .container-fluid {
-        padding: 0 60px;
-    }
-
-    .logo {
-        font-size: 36px;
+        flex-direction: column;
+        height: auto;
+        padding: 10px;
+        text-align: center;
     }
 
     .nav-right {
-        gap: 30px;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
     }
 
-    footer p,
+    .cuentas-container {
+        padding: 10px;
+    }
+
+    .crear-cuenta-btn {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    footer p, 
     footer a {
-        font-size: 1rem;
-    }
-
-    footer .container {
-        max-width: 1100px;
-        margin: 0 auto;
+        font-size: 0.8rem;
     }
 }
 
-/* TABLETS */
-@media (max-width: 768px) {
-    .Formulario {
-        padding: 20px;
-    }
-
+/* Dispositivos medianos (tablets, 577px – 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
     .logo {
         font-size: 24px;
     }
@@ -190,62 +185,38 @@ footer a:hover {
         gap: 10px;
     }
 
-    .Formulario .row {
-        flex-direction: column;
+    .cuentas-container {
+        padding: 15px;
     }
 
-    .Formulario .col-md-6 {
-        width: 100%;
+    .crear-cuenta-btn {
+        max-width: 100%;
     }
 
-    footer p,
+    footer p, 
     footer a {
         font-size: 0.9rem;
     }
 }
 
-/* MÓVILES PEQUEÑOS */
-@media (max-width: 480px) {
-    .container-fluid {
-        flex-direction: column;
-        height: auto;
-        align-items: flex-start;
-        padding: 10px 15px;
-    }
-
-    .nav-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-        width: 100%;
-        margin-top: 10px;
-    }
-
+/* Dispositivos grandes (laptops, desktops pequeños, 769px – 1200px) */
+@media (min-width: 769px) and (max-width: 1200px) {
     .logo {
-        font-size: 20px;
+        font-size: 26px;
     }
 
-    .Formulario {
-        padding: 15px;
+    .crear-cuenta-btn {
+        max-width: 350px;
+    }
+}
+
+/* Pantallas extra grandes (1200px+) */
+@media (min-width: 1201px) {
+    .logo {
+        font-size: 30px;
     }
 
-    .Formulario h3 {
-        font-size: 20px;
-    }
-
-    .Formulario .form-control,
-    .Formulario select,
-    .Formulario input[type="file"] {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    button[type="submit"] {
-        font-size: 16px;
-    }
-
-    footer p,
-    footer a {
-        font-size: 0.8rem;
+    .crear-cuenta-btn {
+        max-width: 400px;
     }
 }

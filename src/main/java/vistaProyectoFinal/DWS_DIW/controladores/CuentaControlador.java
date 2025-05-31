@@ -94,7 +94,7 @@ public class CuentaControlador {
                 model.addAttribute("mensaje", "⚠️ El IBAN ya está en uso o hubo un error.");
                 logger.warn("Intento fallido de crear cuenta con IBAN duplicado.");
             }
-            return "cuentas";
+            return "redirect:/cuentas";
         } catch (Exception e) {
             logger.error("Error al crear cuenta: " + e.getMessage());
             return "error";

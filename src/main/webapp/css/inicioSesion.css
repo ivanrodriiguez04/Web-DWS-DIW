@@ -1,12 +1,26 @@
-/* Contenedor principal */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
+/* ===================== GLOBAL ===================== */
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
-/* Contenedor del formulario */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+}
+
+/* ===================== FORMULARIO ===================== */
 .Formulario {
     background-color: #033880;
     border: 3px solid black;
@@ -15,29 +29,32 @@ body {
     width: 100%;
     max-width: 400px;
     padding: 30px;
-    margin: auto; /* Centra horizontal y verticalmente respecto al contenedor */
+    color: #d9d9d9;
 }
 
-/* Ajustes de texto */
 label, h3 {
-    color:#d9d9d9;
+    color: #d9d9d9;
 }
-.redireccion{
+
+.redireccion {
     color: #d9d9d9;
     text-decoration: none;
 }
-.redireccion:hover{
+
+.redireccion:hover {
     color: black;
     text-decoration: none;
 }
 
-/* CSS para el nav */
+/* ===================== NAV ===================== */
 .container-fluid {
     background-color: #033880;
-    height: 70px;
+    min-height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 15px;
+    flex-wrap: wrap;
 }
 
 .nav-left {
@@ -48,7 +65,6 @@ label, h3 {
 
 .logo {
     color: #d9d9d9;
-    font-family: sans-serif;
     font-weight: bold;
     font-size: 30px;
     text-decoration: none;
@@ -71,6 +87,153 @@ label, h3 {
 .nav-right {
     display: flex;
     gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.login-cuentas {
+    color: #d9d9d9;
+    text-decoration: none;
+}
+.login-cuentas:hover {
+    color: #d9d9d9;
+    text-decoration: none;
+}
+
+/* 🔄 Estilo del enlace con el email (dropdown) */
+.email-link {
+    color: white !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email-link:hover {
+    color: white !important;
+    text-decoration: underline;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Teléfonos pequeños (hasta 576px) */
+@media (max-width: 576px) {
+    .container-fluid {
+        flex-direction: column;
+        height: auto;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .Formulario {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    input.form-control {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+
+    footer p, footer a {
+        font-size: 0.8rem;
+    }
+
+    footer a {
+        display: block;
+        margin: 5px 0;
+    }
+}
+
+/* Tablets (577px a 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .logo {
+        font-size: 26px;
+    }
+
+    .nav-right {
+        gap: 15px;
+    }
+
+    .Formulario {
+        padding: 25px;
+        max-width: 90%;
+    }
+
+    footer p, footer a {
+        font-size: 0.9rem;
+    }
+}
+
+/* Laptops y pantallas medianas (769px a 1200px) */
+@media (min-width: 769px) and (max-width: 1200px) {
+    .logo {
+        font-size: 28px;
+    }
+
+    .Formulario {
+        padding: 30px;
+        max-width: 400px;
+    }
+}
+
+/* Pantallas grandes (más de 1200px) */
+@media (min-width: 1201px) {
+    .logo {
+        font-size: 30px;
+    }
+
+    .Formulario {
+        max-width: 400px;
+    }
+}
+
+
+.nav-left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.logo {
+    color: #d9d9d9;
+    font-weight: bold;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: #d9d9d9;
+    text-decoration: none;
+}
+
+.hazteCliente {
+    color: #f4b426;
+    font-family: 'Courier New';
+    text-decoration: none;
+}
+
+.hazteCliente:hover {
+    color: #f4b426;
+    text-decoration: none;
+}
+
+.nav-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 .login-cuentas {
@@ -81,4 +244,66 @@ label, h3 {
 .login-cuentas:hover {
     color: #d9d9d9;
     text-decoration: none;
+}
+
+.email-link {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email-link:hover {
+    text-decoration: underline;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+    background-color: #033880;
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    width: 100%;
+}
+
+footer .container {
+    padding: 0 15px;
+}
+
+footer h5 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #cceeff;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 24px;
+    }
+
+    .container-fluid {
+        padding: 0 10px;
+    }
+
+    .nav-right {
+        gap: 10px;
+    }
+
+    footer p, footer a {
+        font-size: 0.9rem;
+    }
 }

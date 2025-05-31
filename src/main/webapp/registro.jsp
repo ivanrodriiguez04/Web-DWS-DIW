@@ -4,8 +4,7 @@
 String emailUsuario = (String) session.getAttribute("emailUsuario");
 %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +19,8 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 </head>
 
 <body>
+
+	<!-- NAV -->
 	<nav>
 		<div class="container-fluid">
 			<div class="nav-left">
@@ -35,17 +36,17 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 				} else {
 				%>
 				<div class="dropdown">
-					<a class="dropdown-toggle email-link" id="userDropdown" href="#"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<button class="btn btn-link dropdown-toggle email-link"
+						type="button" id="userDropdown" data-bs-toggle="dropdown"
+						aria-expanded="false">
 						<%=emailUsuario%>
-					</a>
+					</button>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="userDropdown">
-						<li><a href="cuentas.jsp" class="dropdown-item">Cuentas</a></li>												
-						<li><a href="transferencias.jsp" class="dropdown-item">Transferencias</a></li>
-						<li><a href="<%=request.getContextPath()%>/logout.jsp"
-							class="dropdown-item">Cerrar Sesión</a></li>
-
+						<li><a class="dropdown-item" href="cuentas.jsp">Cuentas</a></li>
+						<li><a class="dropdown-item" href="transferencias.jsp">Transferencias</a></li>
+						<li><a class="dropdown-item"
+							href="<%=request.getContextPath()%>/logout.jsp">Cerrar Sesión</a></li>
 					</ul>
 				</div>
 				<%
@@ -56,97 +57,108 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 	</nav>
 
 
-	<div class="container Formulario" style="max-width: 800px;">
-		<h3 class="text-center mb-4">
-			<b>Alta nueva cuenta</b>
-		</h3>
 
-		<!-- Formulario de registro -->
-		<form id="registro" action="registro" method="POST"
-			enctype="multipart/form-data">
+	<!-- FORMULARIO CENTRADO -->
+	<main>
+		<div class="Formulario container">
+			<h3 class="text-center mb-4">
+				<b>Alta nueva cuenta</b>
+			</h3>
+			<form id="registro" action="registro" method="POST"
+				enctype="multipart/form-data">
+				<div class="row">
+					<!-- Columna izquierda -->
+					<div class="col-md-6">
+						<div class="mb-3">
+							<label>Nombre completo:</label> <input type="text"
+								id="nombreCompletoUsuario" name="nombreCompletoUsuario"
+								class="form-control" placeholder="Introduzca su nombre" required>
+						</div>
+						<div class="mb-3">
+							<label>Teléfono:</label> <input type="text" id="telefonoUsuario"
+								name="telefonoUsuario" class="form-control"
+								placeholder="Introduzca su teléfono" required>
+						</div>
+						<div class="mb-3">
+							<label>Email:</label> <input type="email" id="emailUsuario"
+								name="emailUsuario" class="form-control"
+								placeholder="Introduzca su email" required>
+						</div>
+						<div class="mb-3">
+							<label>Repetir email:</label> <input type="email"
+								id="confirmEmailUsuario" name="confirmEmailUsuario"
+								class="form-control" placeholder="Introduzca su email" required>
+						</div>
+						<div class="mb-3">
+							<label>Contraseña:</label> <input type="password"
+								id="passwordUsuario" name="passwordUsuario" class="form-control"
+								placeholder="Introduce la contraseña" required>
+						</div>
+						<div class="mb-3">
+							<label>Repetir contraseña:</label> <input type="password"
+								id="confirmPasswordUsuario" name="confirmPasswordUsuario"
+								class="form-control" placeholder="Repetir contraseña" required>
+						</div>
+					</div>
 
-			<div class="row">
-				<!-- Primera columna -->
-				<div class="col-md-6">
-					<div class="mb-3">
-						<label>Nombre completo:</label> <input type="text"
-							id="nombreCompletoUsuario" name="nombreCompletoUsuario"
-							class="form-control" placeholder="Introduzca su nombre" required>
-					</div>
-					<div class="mb-3">
-						<label>Telefono:</label> <input type="text" id="telefonoUsuario"
-							name="telefonoUsuario" class="form-control"
-							placeholder="Introduzca su telefono" required>
-					</div>
-					<div class="mb-3">
-						<label>Email:</label> <input type="email" id="emailUsuario"
-							name="emailUsuario" class="form-control"
-							placeholder="Introduzca su email" required>
-					</div>
-					<div class="mb-3">
-						<label>Repetir email:</label> <input type="email"
-							id="confirmEmailUsuario" name="confirmEmailUsuario"
-							class="form-control" placeholder="Introduzca su email" required>
-					</div>
-					<div class="mb-3">
-						<label>Contrasena:</label> <input type="password"
-							id="passwordUsuario" name="passwordUsuario" class="form-control"
-							placeholder="Introduce la contrasena" required>
-					</div>
-					<div class="mb-3">
-						<label>Repetir contrasena:</label> <input type="password"
-							id="confirmPasswordUsuario" name="confirmPasswordUsuario"
-							class="form-control" placeholder="Repetir contrasena" required>
+					<!-- Columna derecha -->
+					<div class="col-md-6">
+						<div class="mb-3">
+							<label>Ciudad:</label> <select id="ciudadUsuario"
+								name="ciudadUsuario" class="form-control" required>
+								<option value="">Seleccione una ciudad</option>
+								<option value="Madrid">Madrid</option>
+								<option value="Barcelona">Barcelona</option>
+								<option value="Valencia">Valencia</option>
+								<option value="Sevilla">Sevilla</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label>DNI:</label> <input type="text" id="dniUsuario"
+								name="dniUsuario" class="form-control"
+								placeholder="Introduzca su DNI" required>
+						</div>
+						<div class="mb-3">
+							<label>Foto DNI frontal:</label> <input type="file"
+								id="fotoDniFrontalUsuario" name="fotoDniFrontalUsuario"
+								class="form-control" accept=".jpg,.png" required>
+						</div>
+						<div class="mb-3">
+							<label>Foto DNI trasera:</label> <input type="file"
+								id="fotoDniTraseroUsuario" name="fotoDniTraseroUsuario"
+								class="form-control" accept=".jpg,.png" required>
+						</div>
+						<div class="mb-3">
+							<label>Foto del rostro:</label> <input type="file"
+								id="fotoUsuario" name="fotoUsuario" class="form-control"
+								accept=".jpg,.png" required>
+						</div>
 					</div>
 				</div>
 
-				<!-- Segunda columna -->
+				<button type="submit" class="btn btn-dark w-100">Registrarse</button>
+			</form>
+			<div id="result" class="text-center mt-3 text-danger"></div>
+		</div>
+	</main>
 
-				<div class="col-md-6">
-					<div class="mb-3">
-						<label>Ciudad:</label> <select id="ciudadUsuario"
-							name="ciudadUsuario" class="form-control" required>
-							<option value="">Seleccione una ciudad</option>
-							<option value="Madrid">Madrid</option>
-							<option value="Barcelona">Barcelona</option>
-							<option value="Valencia">Valencia</option>
-							<option value="Sevilla">Sevilla</option>
-						</select>
-					</div>
-					<div class="mb-3">
-						<label>DNI:</label> <input type="text" id="dniUsuario"
-							name="dniUsuario" class="form-control"
-							placeholder="Introduzca su DNI" required>
-					</div>
-					<div class="mb-3">
-						<label>Seleccione foto de su DNI por delante:</label> <input
-							type="file" id="fotoDniFrontalUsuario"
-							name="fotoDniFrontalUsuario" class="form-control"
-							accept=".jpg,.png" required>
-					</div>
-					<div class="mb-3">
-						<label>Seleccione foto de su DNI por detras:</label> <input
-							type="file" id="fotoDniTraseroUsuario"
-							name="fotoDniTraseroUsuario" class="form-control"
-							accept=".jpg,.png" required>
-					</div>
-					<div class="mb-3">
-						<label>Seleccione foto de su rostro:</label> <input type="file"
-							id="fotoUsuario" name="fotoUsuario" class="form-control"
-							accept=".jpg,.png" required>
-					</div>
-				</div>
+	<!-- FOOTER -->
+	<footer>
+		<div class="container text-center">
+			<h5>InnovaBank</h5>
+			<p>
+				&copy;
+				<%=java.time.Year.now()%>
+				InnovaBank. Todos los derechos reservados.
+			</p>
+			<p>C/ Futuro Financiero, 123 · Madrid, España · Tel: +34 900 123
+				456</p>
+			<div>
+				<a href="#">Términos</a> <a href="#">Privacidad</a> <a href="#">Contacto</a>
 			</div>
+		</div>
+	</footer>
 
-			<!-- BotÃ³n de registro -->
-			<button type="submit" class="btn btn-dark w-100">Registrarse</button>
-		</form>
-
-		<!-- Contenedor de mensajes de resultado -->
-		<div id="result" class="text-center mt-3 text-danger"></div>
-	</div>
 	<script src="js/registro.js"></script>
-
 </body>
-
 </html>

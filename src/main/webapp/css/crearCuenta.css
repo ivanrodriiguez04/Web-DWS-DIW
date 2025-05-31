@@ -1,10 +1,15 @@
 /* ===================== GLOBAL ===================== */
-body {
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 main {
@@ -22,7 +27,7 @@ main {
     border-radius: 10px;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
     width: 100%;
-    max-width: 900px;
+    max-width: 400px;
     padding: 30px;
     color: #d9d9d9;
 }
@@ -97,6 +102,7 @@ label, h3 {
     text-decoration: underline;
 }
 
+
 /* ===================== FOOTER ===================== */
 footer {
     background-color: #033880;
@@ -131,121 +137,79 @@ footer a:hover {
 }
 
 /* ===================== RESPONSIVE ===================== */
-@media (min-width: 1200px) {
-    .Formulario {
-        padding: 40px 60px;
-        max-width: 1000px;
-    }
 
-    .Formulario h3 {
-        font-size: 28px;
-    }
-
-    .Formulario .form-control,
-    .Formulario select,
-    .Formulario input[type="file"] {
-        font-size: 16px;
-        padding: 10px;
-    }
-
-    button[type="submit"] {
-        font-size: 18px;
-        padding: 12px;
+/* Tablet y pantallas medianas */
+@media (max-width: 768px) {
+    .logo {
+        font-size: 24px;
     }
 
     .container-fluid {
-        padding: 0 60px;
+        padding: 0 10px;
+    }
+
+    .nav-right {
+        gap: 10px;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    footer p, footer a {
+        font-size: 0.9rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 576px) {
+    .container-fluid {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .nav-right {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 10px;
+        gap: 5px;
+    }
+
+    .Formulario {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+    }
+
+    footer p, footer a {
+        font-size: 0.85rem;
+        display: block;
+        margin: 5px 0;
+    }
+
+    footer a {
+        margin: 5px 0;
+    }
+}
+
+/* Escritorio grande */
+@media (min-width: 1200px) {
+    .Formulario {
+        max-width: 500px;
     }
 
     .logo {
         font-size: 36px;
     }
 
-    .nav-right {
-        gap: 30px;
-    }
-
-    footer p,
-    footer a {
-        font-size: 1rem;
-    }
-
-    footer .container {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-}
-
-/* TABLETS */
-@media (max-width: 768px) {
-    .Formulario {
-        padding: 20px;
-    }
-
-    .logo {
-        font-size: 24px;
-    }
-
-    .nav-right {
-        gap: 10px;
-    }
-
-    .Formulario .row {
-        flex-direction: column;
-    }
-
-    .Formulario .col-md-6 {
-        width: 100%;
-    }
-
-    footer p,
-    footer a {
-        font-size: 0.9rem;
-    }
-}
-
-/* MÓVILES PEQUEÑOS */
-@media (max-width: 480px) {
-    .container-fluid {
-        flex-direction: column;
-        height: auto;
-        align-items: flex-start;
-        padding: 10px 15px;
-    }
-
-    .nav-right {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-        width: 100%;
-        margin-top: 10px;
-    }
-
-    .logo {
-        font-size: 20px;
-    }
-
-    .Formulario {
-        padding: 15px;
-    }
-
-    .Formulario h3 {
-        font-size: 20px;
-    }
-
-    .Formulario .form-control,
-    .Formulario select,
-    .Formulario input[type="file"] {
-        font-size: 14px;
-        padding: 8px;
-    }
-
-    button[type="submit"] {
-        font-size: 16px;
-    }
-
-    footer p,
-    footer a {
-        font-size: 0.8rem;
+    .btn {
+        font-size: 1.1rem;
     }
 }

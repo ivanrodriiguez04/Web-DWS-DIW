@@ -63,4 +63,15 @@
     color: white !important;
     text-decoration: underline;
 }
+.mb-3.mt-4 {
+  text-align: center;
+}
+
+.mb-3.mt-4 button {
+  margin: 0 10px; /* espacio horizontal entre botones */
+}
+/* Asegura buen espaciado debajo de las tablas y centrado */
+.container .row {
+    margin-top: 20px;
+}
 

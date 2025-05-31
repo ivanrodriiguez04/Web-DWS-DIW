@@ -16,6 +16,7 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 <head>
 <meta charset="UTF-8">
 <title>Administración de Usuarios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="imagenes/favicon.png">
 <link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet"
@@ -25,7 +26,7 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 	<nav>
 		<div class="container-fluid">
 			<div class="nav-left">
-				<a href="" class="logo">InnovaBank</a>
+				<a href="index.jsp" class="logo">InnovaBank</a>
 			</div>
 			<div class="nav-right">
 				<%
@@ -37,14 +38,15 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 				} else {
 				%>
 				<div class="dropdown">
-					<a class="dropdown-toggle email-link" id="userDropdown" href="#"
-						role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<button class="btn btn-link dropdown-toggle email-link"
+						type="button" id="userDropdown" data-bs-toggle="dropdown"
+						aria-expanded="false">
 						<%=emailUsuario%>
-					</a>
+					</button>
 					<ul class="dropdown-menu dropdown-menu-end"
 						aria-labelledby="userDropdown">
-						<li><a href="<%=request.getContextPath()%>/logout.jsp"
-							class="dropdown-item">Cerrar Sesión</a></li>
+						<li><a class="dropdown-item"
+							href="<%=request.getContextPath()%>/logout.jsp">Cerrar Sesión</a></li>
 					</ul>
 				</div>
 				<%
@@ -53,6 +55,8 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 			</div>
 		</div>
 	</nav>
+
+
 
 	<div class="container mt-4">
 		<h1 class="mb-4">Usuarios</h1>

@@ -2,29 +2,31 @@ document.addEventListener("DOMContentLoaded", function () {
     cargarUsuarios();
 });
 
+function obtenerFechaActual() {
+    var fecha = new Date();
+    var año = fecha.getFullYear();
+    var mes = ("0" + (fecha.getMonth() + 1)).slice(-2);
+    var dia = ("0" + fecha.getDate()).slice(-2);
+    return dia + "-" + mes + "-" + año;
+}
+
 function cargarUsuarios() {
     fetch("/superadmin/usuarios")
-        .then(response => response.json())
-        .then(data => {
-            let usuarios = Array.isArray(data) ? data : [data];
-
-            let tablaAdmins = document.getElementById("adminTable");
-            let tablaUsuarios = document.getElementById("userTable");
-
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            var usuarios = Array.isArray(data) ? data : [data];
+            var tablaAdmins = document.getElementById("adminTable");
+            var tablaUsuarios = document.getElementById("userTable");
             tablaAdmins.innerHTML = "";
             tablaUsuarios.innerHTML = "";
 
-            usuarios.forEach(usuario => {
-                let fila = document.createElement("tr");
-                fila.innerHTML = `
-                    <td>${usuario.idUsuario}</td>
-                    <td>${usuario.nombreCompletoUsuario}</td>
-                    <td>${usuario.emailUsuario}</td>
-                    <td>
-                        <button class="btn btn-danger" onclick="confirmarEliminacion(${usuario.idUsuario})">Eliminar</button>
-                    </td>
-                `;
-
+            usuarios.forEach(function(usuario) {
+                var fila = document.createElement("tr");
+                fila.innerHTML =
+                    "<td>" + usuario.idUsuario + "</td>" +
+                    "<td>" + usuario.nombreCompletoUsuario + "</td>" +
+                    "<td>" + usuario.emailUsuario + "</td>" +
+                    "<td><button class='btn btn-danger' onclick='confirmarEliminacion(" + usuario.idUsuario + ")'>Eliminar</button></td>";
                 if (usuario.rolUsuario === "admin") {
                     tablaAdmins.appendChild(fila);
                 } else if (usuario.rolUsuario === "usuario") {
@@ -32,28 +34,106 @@ function cargarUsuarios() {
                 }
             });
         })
-        .catch(error => console.error("Error al cargar usuarios:", error));
+        .catch(function(error) { console.error("Error al cargar usuarios:", error); });
 }
 
 function confirmarEliminacion(id) {
-    let confirmacion = confirm("¿Estás seguro de que deseas eliminar este usuario?");
+    var confirmacion = confirm("¿Estás seguro de que deseas eliminar este usuario?");
     if (confirmacion) {
         eliminarUsuario(id);
     }
 }
 
 function eliminarUsuario(id) {
-    fetch(`/superadmin/eliminar/${id}`, {
-        method: "DELETE",
+    fetch("/superadmin/eliminar/" + id, {
+        method: "DELETE"
     })
-    .then(response => response.json())
-    .then(data => {
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
         if (data.mensaje) {
             alert(data.mensaje);
             location.reload();
         } else {
-            alert("Error: " + data.error);
+            alert("Error: " + (data.error || "No se pudo eliminar el usuario."));
         }
     })
-    .catch(error => console.error("Error en la solicitud:", error));
+    .catch(function(error) { console.error("Error en la solicitud:", error); });
+}
+
+async function descargarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    try {
+        const response = await fetch("/superadmin/usuarios");
+        const data = await response.json();
+        const usuarios = Array.isArray(data) ? data : [data];
+
+        // Título
+        doc.setFontSize(18);
+        doc.text("Listado de Usuarios", 105, 20, { align: "center" });
+
+        // Fecha de generación
+        const fecha = obtenerFechaActual();
+        doc.setFontSize(10);
+        doc.text(`Generado el: ${fecha}`, 14, 28);
+
+        // Crear la tabla con autoTable
+        const headers = [["ID", "Nombre", "Email", "Rol"]];
+        const rows = usuarios.map(u => [
+            u.idUsuario.toString(),
+            u.nombreCompletoUsuario,
+            u.emailUsuario,
+            u.rolUsuario
+        ]);
+
+        doc.autoTable({
+            startY: 35,
+            head: headers,
+            body: rows,
+            theme: "striped", // Otros: "grid", "plain"
+            headStyles: {
+                fillColor: [51, 102, 204], // Azul
+                textColor: 255,
+                fontSize: 12
+            },
+            bodyStyles: {
+                fontSize: 10
+            },
+            margin: { left: 14, right: 14 }
+        });
+
+        doc.save(`usuarios_${fecha}.pdf`);
+    } catch (error) {
+        console.error("Error al generar el PDF:", error);
+        alert("No se pudo generar el PDF.");
+    }
+}
+
+
+function descargarExcel() {
+    var fecha = obtenerFechaActual();
+    fetch("/superadmin/usuarios")
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+            var usuarios = Array.isArray(data) ? data : [data];
+            var worksheetData = usuarios.map(function(u) {
+                return {
+                    ID: u.idUsuario,
+                    Nombre: u.nombreCompletoUsuario,
+                    Email: u.emailUsuario,
+                    Rol: u.rolUsuario
+                };
+            });
+
+            var worksheet = XLSX.utils.json_to_sheet(worksheetData);
+            var workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Usuarios");
+
+            XLSX.writeFile(workbook, "usuarios_" + fecha + ".xlsx");
+        })
+        .catch(function(error) {
+            console.error("Error al generar el Excel:", error);
+            alert("No se pudo generar el Excel.");
+        });
 }

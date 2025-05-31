@@ -5,13 +5,18 @@
     padding: 0;
 }
 
-/* Contenedor ocupa toda la pantalla y centra el formulario */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Contenedor principal centrado y con padding adaptable */
 .container-fluid {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+    min-height: 100vh;
+    padding: 15px;
 }
 
 /* Tarjeta del formulario */
@@ -23,33 +28,78 @@
     width: 100%;
     max-width: 400px;
     padding: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Color de los textos */
-.Restablecer h3, 
+/* Título y etiquetas */
+.Restablecer h3,
 .Restablecer label {
     color: white;
 }
 
-/* Labels alineados a la izquierda */
+/* Estilo de etiquetas */
 .Restablecer label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-/* Inputs y botón ocupan todo el ancho */
+/* Inputs y botones */
 .Restablecer input,
 .Restablecer button {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
+    border-radius: 5px;
+    border: none;
 }
 
-/* Ajustes responsivos */
+/* Resultado de mensajes */
+#result .alert {
+    font-size: 0.9rem;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsivo: tablets y pantallas medianas */
+@media (max-width: 768px) {
+    .Restablecer {
+        padding: 25px;
+        max-width: 95%;
+    }
+}
+
+/* Responsivo: móviles */
 @media (max-width: 480px) {
     .Restablecer {
         padding: 20px;
-        max-width: 90%;
+    }
+
+    .Restablecer h3 {
+        font-size: 1.2rem;
+    }
+
+    .Restablecer input,
+    .Restablecer button {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mejora visual para pantallas grandes */
+@media (min-width: 1200px) {
+    .Restablecer {
+        padding: 40px;
+        font-size: 1.05rem;
     }
 }
