@@ -13,15 +13,22 @@ public class DwsDiwApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Intentando abrir el navegador...");
-        try {
-            if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                // Para Windows
-                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler http://localhost:8080/");
+        // Solo abre navegador si está corriendo embebido (no en WAR)
+        if (isRunningLocally()) {
+            System.out.println("Intentando abrir el navegador...");
+            try {
+                if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                    Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler http://localhost:8080/");
+                }
+                System.out.println("Navegador abierto exitosamente.");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            System.out.println("Navegador abierto exitosamente.");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+    }
+
+    private boolean isRunningLocally() {
+        String server = System.getProperty("spring.profiles.active");
+        return server == null || server.equals("local");
     }
 }

@@ -24,7 +24,7 @@ import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 @Service
 public class RestablecerPasswordServicio {
     private static final SesionLogger logger = new SesionLogger(RestablecerPasswordServicio.class);
-    private final String API_URL = "http://localhost:8081/api/usuarios/restablecer";
+    private final String API_URL = "http://localhost:8081/apiProyectoFinal/api/usuarios/restablecer";
 
     @Autowired
     private PasswordEncoder passwordEncoder;

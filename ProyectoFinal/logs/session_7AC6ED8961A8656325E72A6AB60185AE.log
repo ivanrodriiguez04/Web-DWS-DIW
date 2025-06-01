@@ -1,0 +1,3 @@
+2025-06-01 11:49:15 - [ERROR] Error al guardar token en la API para ivanrodriiguez04@gmail.com: I/O error on POST request for "http://16.170.127.156:8081/apiProyectoFinal/api/usuarios/guardarToken": Connection timed out: connect
+2025-06-01 11:49:15 - [WARN] Error al guardar el token en la API.
+2025-06-01 11:49:15 - [WARN] Error al enviar correo de recuperación a: ivanrodriiguez04@gmail.com

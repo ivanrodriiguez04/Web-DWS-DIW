@@ -32,7 +32,7 @@ public class LoginServicio {
     public boolean verificarUsuario(String correo, String password) {
         boolean todoOk = false;
         try {
-            URL url = new URL("http://localhost:8081/api/login/validarUsuario");
+            URL url = new URL("http://localhost:8081/apiProyectoFinal/api/login/validarUsuario");
             HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
             conexion.setRequestMethod("POST");
             conexion.setRequestProperty("Content-Type", "application/json");

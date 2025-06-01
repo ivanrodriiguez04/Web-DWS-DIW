@@ -11,7 +11,7 @@ document.getElementById("login").addEventListener("submit", function(event) {
     let email = document.getElementById("emailUsuario").value;
     let password = document.getElementById("passwordUsuario").value;
 
-    fetch("http://localhost:8081/api/auth/login", {
+    fetch("http://16.170.127.156:8081/apiProyectoFinal/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: email, password: password })

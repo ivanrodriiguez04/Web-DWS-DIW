@@ -60,56 +60,46 @@ function eliminarUsuario(id) {
     .catch(function(error) { console.error("Error en la solicitud:", error); });
 }
 
-async function descargarPDF() {
+function descargarPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    try {
-        const response = await fetch("/superadmin/usuarios");
-        const data = await response.json();
-        const usuarios = Array.isArray(data) ? data : [data];
+    fetch("/superadmin/usuarios")
+        .then(response => response.json())
+        .then(data => {
+            const usuarios = Array.isArray(data) ? data : [data];
+            const fecha = obtenerFechaActual();
 
-        // Título
-        doc.setFontSize(18);
-        doc.text("Listado de Usuarios", 105, 20, { align: "center" });
+            doc.setFontSize(18);
+            doc.text("Listado de Usuarios", 105, 20, { align: "center" });
+            doc.setFontSize(10);
+            doc.text(`Generado el: ${fecha}`, 14, 28);
 
-        // Fecha de generación
-        const fecha = obtenerFechaActual();
-        doc.setFontSize(10);
-        doc.text(`Generado el: ${fecha}`, 14, 28);
+            const headers = [["ID", "Nombre", "Email", "Rol"]];
+            const rows = usuarios.map(u => [
+                u.idUsuario.toString(),
+                u.nombreCompletoUsuario,
+                u.emailUsuario,
+                u.rolUsuario
+            ]);
 
-        // Crear la tabla con autoTable
-        const headers = [["ID", "Nombre", "Email", "Rol"]];
-        const rows = usuarios.map(u => [
-            u.idUsuario.toString(),
-            u.nombreCompletoUsuario,
-            u.emailUsuario,
-            u.rolUsuario
-        ]);
+            doc.autoTable({
+                startY: 35,
+                head: headers,
+                body: rows,
+                theme: "striped",
+                headStyles: { fillColor: [51, 102, 204], textColor: 255, fontSize: 12 },
+                bodyStyles: { fontSize: 10 },
+                margin: { left: 14, right: 14 }
+            });
 
-        doc.autoTable({
-            startY: 35,
-            head: headers,
-            body: rows,
-            theme: "striped", // Otros: "grid", "plain"
-            headStyles: {
-                fillColor: [51, 102, 204], // Azul
-                textColor: 255,
-                fontSize: 12
-            },
-            bodyStyles: {
-                fontSize: 10
-            },
-            margin: { left: 14, right: 14 }
+            doc.save(`usuarios_${fecha}.pdf`);
+        })
+        .catch(error => {
+            console.error("Error al generar el PDF:", error);
+            alert("No se pudo generar el PDF.");
         });
-
-        doc.save(`usuarios_${fecha}.pdf`);
-    } catch (error) {
-        console.error("Error al generar el PDF:", error);
-        alert("No se pudo generar el PDF.");
-    }
 }
-
 
 function descargarExcel() {
     var fecha = obtenerFechaActual();

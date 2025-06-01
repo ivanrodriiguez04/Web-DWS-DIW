@@ -18,7 +18,7 @@ import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 public class ConfirmacionControlador {
 
     private static final SesionLogger logger = new SesionLogger(ConfirmacionControlador.class);
-    private final String API_URL = "http://localhost:8081/api/registro/confirmar";
+    private final String API_URL = "http://16.170.127.156:8081/apiProyectoFinal/api/registro/confirmar";
 
     @Autowired
     private RestTemplate restTemplate;

@@ -25,7 +25,7 @@ import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 @Service
 public class RecuperarPasswordServicio {
     private static final SesionLogger logger = new SesionLogger(RecuperarPasswordServicio.class);
-    private final String API_URL = "http://localhost:8081/api/usuarios/guardarToken";
+    private final String API_URL = "http://localhost:8081/apiProyectoFinal/api/usuarios/guardarToken";
 
     @Autowired
     private EmailServicio emailServicio;

@@ -21,7 +21,7 @@ public class AdministradorServicio {
 
     private static final SesionLogger logger = new SesionLogger(AdministradorServicio.class);
     
-    private final String API_URL = "http://localhost:8081/api/administrador";
+    private final String API_URL = "http://localhost:8081/apiProyectoFinal/api/administrador";
     private final RestTemplate restTemplate;
 
     /**

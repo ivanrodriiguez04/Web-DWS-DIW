@@ -14,7 +14,7 @@ import vistaProyectoFinal.DWS_DIW.dtos.TransferenciaDto;
 public class TransferenciaServicio {
 	public boolean realizarTransferencia(TransferenciaDto transferenciaDto) {
         try {
-            URL url = new URL("http://localhost:8081/api/transferencias/enviarDinero");
+            URL url = new URL("http://localhost:8081/apiProyectoFinal/api/transferencias/enviarDinero");
             HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
             conexion.setRequestMethod("POST");
             conexion.setRequestProperty("Content-Type", "application/json");

@@ -25,7 +25,7 @@ import vistaProyectoFinal.DWS_DIW.configuracion.SesionLogger;
 @Service
 public class RegistroServicio {
     private static final SesionLogger logger = new SesionLogger(RegistroServicio.class);
-    private final String API_URL = "http://localhost:8081/api/registro/usuario";
+    private final String API_URL = "http://localhost:8081/apiProyectoFinal/api/registro/usuario";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -97,7 +97,7 @@ public class RegistroServicio {
     private void enviarCorreoConfirmacion(String email, String token) {
         try {
             String asunto = "Confirma tu cuenta en InnovaBank";
-            String enlaceConfirmacion = "http://localhost:8080/confirmar?token=" + token;
+            String enlaceConfirmacion = "http://16.170.127.156:8080/confirmar?token=" + token;
             String mensaje = "<html><body>"
                     + "<h2>¡Bienvenido a InnovaBank!</h2>"
                     + "<p>Gracias por registrarte. Para activar tu cuenta, haz clic en el siguiente enlace:</p>"

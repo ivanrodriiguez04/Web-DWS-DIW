@@ -104,5 +104,9 @@ String emailUsuario = (String) session.getAttribute("emailUsuario");
 
 	<!-- ✅ Corrección de rutas absolutas para JS -->
 	<script src="<%=request.getContextPath()%>/js/cuenta.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 </html>
